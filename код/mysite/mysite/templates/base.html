@@ -1,10 +1,11 @@
-{% load static wagtailcore_tags wagtailuserbar base_tags %}
+{% load static wagtailcore_tags wagtailuserbar base_tags account socialaccount %}
 
 <!DOCTYPE html>
 <html lang="ru">
     <head>
         <meta charset="utf-8" />
         <title>
+
             {% block title %}
             {% if page.seo_title %}
                 {{ page.seo_title }}
@@ -30,7 +31,7 @@
 
         {# Global stylesheets #}
         <link rel="stylesheet" type="text/css" href="{% static 'css/mysite.css' %}">
-
+        <h2>{% user_display user %}</h2>
         {% block extra_css %}
         {# Override this in templates to add extra stylesheets #}
         {% endblock %}
@@ -52,6 +53,7 @@
         {% block extra_js %}
         {# Override this in templates to add extra javascript #}
         {% endblock %}
+
     </body>
 
 </html>
