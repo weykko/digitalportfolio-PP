@@ -1,4 +1,11 @@
 from django.db import models
+from django.contrib.auth.models import User
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+from  wagtail.users.models import UserProfile
+
+
+from django.views.generic.edit import CreateView
 from wagtail.models import Page
 from wagtail.fields import RichTextField
 
@@ -10,7 +17,24 @@ from modelcluster.fields import ParentalKey
 # Create your models here.
 
 
-@register_snippet
+class Profile(models.Model):
+    profile_pic = models.ImageField(null=True, blank=True, upload_to="images/profile/")
+    user=models.OneToOneField(User, null=True, on_delete=models.CASCADE)
+    name = models.CharField(max_length=20)
+    city = models.CharField(max_length=30)
+    bio=models.TextField(null=True, blank=True)
+    achievements = models.TextField(null=True, blank=True)
+    VK = models.CharField(max_length=50, null=True, blank=True)
+    Telegram = models.CharField(max_length=50, null=True, blank=True)
+    WhatsApp = models.CharField(max_length=50, null=True, blank=True)
+    mail = models.CharField(max_length=50, null=True, blank=True)
+
+
+def __str__(self):
+    return str(self.user)
+
+
+'''@register_snippet
 class PortfolioOperator(models.Model):
     """Оператор портфолио"""
 
@@ -51,7 +75,7 @@ class PortfolioIndexPage(Page):
     """Страница для выведения ленты с работами"""
 
     subpage_types = ['equipment.PortfolioPage']
-    parent_page_types = ['home.HomePage']
+    parent_page_types = ['home.HomePage']'''
 
 
 
