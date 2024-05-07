@@ -1,0 +1,16 @@
+
+{% block content %}
+    {% if request.user.is_authenticated %}
+        <div class="header-bar"></div>
+
+        <div class="card-body">
+            <form method="POST" action="" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{form.as_p}}
+                <input class="button" type="submit" value="Submit">
+            </form>
+        </div>
+    {% else %}
+        <a href="{% url 'account_signup' %}">Перед созданием профиля, пожалуйста, пройдите регистарцию</a>
+    {% endif %}
+{% endblock content %}

@@ -1,38 +1,27 @@
 from django.db import models
 from django.contrib.auth.models import User
-from django.db.models.signals import post_save
-from django.dispatch import receiver
-from  wagtail.users.models import UserProfile
-
-
-from django.views.generic.edit import CreateView
-from wagtail.models import Page
-from wagtail.fields import RichTextField
-
-from wagtail.admin.panels import FieldPanel, InlinePanel
-from wagtail.snippets.models import register_snippet
-from modelcluster.fields import ParentalKey
-
+from django.urls import reverse
 
 # Create your models here.
 
-
 class Profile(models.Model):
     profile_pic = models.ImageField(null=True, blank=True, upload_to="images/profile/")
-    user=models.OneToOneField(User, null=True, on_delete=models.CASCADE)
-    name = models.CharField(max_length=20)
-    city = models.CharField(max_length=30)
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    firstname = models.CharField(max_length=30)
+    lastname = models.CharField(max_length=30)
+    city = models.CharField(max_length=30, null=True)
     bio=models.TextField(null=True, blank=True)
     achievements = models.TextField(null=True, blank=True)
     VK = models.CharField(max_length=50, null=True, blank=True)
     Telegram = models.CharField(max_length=50, null=True, blank=True)
     WhatsApp = models.CharField(max_length=50, null=True, blank=True)
-    mail = models.CharField(max_length=50, null=True, blank=True)
+    #mail = models.CharField(max_length=50, null=True, blank=True)
 
+    def __str__(self):
+        return str(self.user)
 
-def __str__(self):
-    return str(self.user)
-
+    def get_absolute_url(self):
+        return reverse('user_profile', kwargs={'pk': self.pk})
 
 '''@register_snippet
 class PortfolioOperator(models.Model):

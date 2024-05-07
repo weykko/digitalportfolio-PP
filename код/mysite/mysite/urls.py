@@ -6,16 +6,16 @@ from wagtail.admin import urls as wagtailadmin_urls
 from wagtail import urls as wagtail_urls
 from wagtail.documents import urls as wagtaildocs_urls
 
-from search.views import CreateProfilePageView
-from search.views import ShowProfilePageView
+from search.views import *
 
 urlpatterns = [
     path("django-admin/", admin.site.urls),
     path("admin/", include(wagtailadmin_urls)),
     path("documents/", include(wagtaildocs_urls)),
     path('', include('allauth.urls')),
-    path('create_profile_page/',CreateProfilePageView.as_view(), name='create_user_profile'),
-    path('user_profile/<int:pk>/', ShowProfilePageView.as_view(), name='user_profile'),
+    path('create_profile/',CreateProfilePageView.as_view(), name='create_user_profile'),
+    path('profile/<int:pk>/', ShowProfilePageView.as_view(), name='user_profile'),
+    path('edit_profile/<int:pk>/', EditProfilePageView.as_view(), name='edit_user_profile'),
 ]
 
 
