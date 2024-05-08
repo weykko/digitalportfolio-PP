@@ -46,5 +46,3 @@ class EditProfilePageView(UpdateView):
 class HomeView(TemplateView):
     template_name = "HomePage/index.html"
 
-class AboutUsPage(TemplateView):
-    template_name = "AboutUsPage/about.html"
