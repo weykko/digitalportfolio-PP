@@ -1,4 +1,4 @@
-from django.views.generic import CreateView, UpdateView
+from django.views.generic import CreateView, UpdateView, TemplateView
 from django.views.generic.detail import DetailView
 from equipment.models import *
 from django.shortcuts import get_object_or_404
@@ -22,7 +22,6 @@ class ShowProfilePageView(DetailView):
         context['page_user'] = page_user
         return context
 
-
 class CreateProfilePageView(CreateView):
     model = Profile
 
@@ -42,3 +41,10 @@ class EditProfilePageView(UpdateView):
     model = Profile
     template_name = 'Profile/edit_profile_page.html'
     form_class = ProfileForm
+
+
+class HomeView(TemplateView):
+    template_name = "HomePage/index.html"
+
+class AboutUsPage(TemplateView):
+    template_name = "AboutUsPage/about.html"
