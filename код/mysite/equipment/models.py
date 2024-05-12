@@ -6,11 +6,11 @@ from django.urls import reverse
 # Create your models here.
 class Profile(models.Model):
     profile_pic = models.ImageField(verbose_name="Аватарка", null=True, blank=True, upload_to="images/profile/")
-    user = models.OneToOneField(User,verbose_name="Пользователь", on_delete=models.CASCADE)
+    user = models.OneToOneField(User, verbose_name="Пользователь", on_delete=models.CASCADE)
     firstname = models.CharField(verbose_name="Имя", max_length=30)
     lastname = models.CharField(verbose_name="Фамилия", max_length=30)
     city = models.CharField(verbose_name="Город", max_length=30, null=True)
-    bio=models.TextField(verbose_name="Расскажите о себе", null=True, blank=True)
+    bio = models.TextField(verbose_name="Расскажите о себе", null=True, blank=True)
     achievements = models.TextField(verbose_name="Достижения", null=True, blank=True)
     VK = models.CharField(verbose_name="Ваш Вконтакте", max_length=50, null=True, blank=True)
     Telegram = models.CharField(verbose_name="Ваш Телеграм", max_length=50, null=True, blank=True)
@@ -28,6 +28,24 @@ class Profile(models.Model):
 
     def get_absolute_url(self):
         return reverse('user_profile', kwargs={'pk': self.pk})
+
+class Post(models.Model):
+    datetime = models.DateTimeField(verbose_name="Дата", auto_now_add=True)
+    author = models.ForeignKey(User, verbose_name="Автор", on_delete=models.CASCADE, related_name="posts")
+    text = models.CharField(verbose_name="Текст", max_length=1000, null=True, blank=True)
+    image = models.FileField(verbose_name="Картинка", null=True, blank=True)
+
+    class Meta:
+        ordering = ["-datetime"]
+
+class Comment(models.Model):
+    datetime = models.DateTimeField(verbose_name="Дата", auto_now_add=True)
+    author = models.ForeignKey(User, verbose_name="Автор", on_delete=models.CASCADE, related_name="comments")
+    post = models.ForeignKey(Post, verbose_name="Пост", on_delete=models.CASCADE, related_name="comments")
+    text = models.CharField(verbose_name="Текст", max_length=1000, null=True, blank=True)
+
+    class Meta:
+        ordering = ["datetime"]
 
 '''@register_snippet
 class PortfolioOperator(models.Model):

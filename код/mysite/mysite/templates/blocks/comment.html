@@ -1,0 +1,16 @@
+{% load static %}
+<div class="comment">
+    <div class="post-title">
+        {% if comment.author.profile.avatar.name %}
+            <img src="{{ comment.author.profile.avatar.url }}" class="post-author-img img-thumbnail">
+        {% else %}
+            <img src="{% static 'images/user.png' %}" class="post-author-img img-thumbnail">
+        {% endif %}
+        <div class="comment-body">
+            <span class="comment-author">{{ comment.author.get_full_name }}</span> {{ comment.text|default_if_none:""|urlize }}
+            <div class="post-datetime">
+                {{ comment.datetime|date:"d M Y H:i" }}
+            </div>
+        </div>
+    </div>
+</div>

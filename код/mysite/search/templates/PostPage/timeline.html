@@ -1,0 +1,106 @@
+{% extends 'base.html' %}
+{% load my_filters %}
+{% load static %}
+{% block content %}
+    <link href="{% static 'css/styles.css' %}" rel="stylesheet">
+    <div class="container">
+        <div class="row">
+            <div class="col-3">
+                <div class="block left-menu">
+                    <a href="{% url 'home_view' %}">
+                        <i class="fa fa-user-circle"></i> На главную
+                    </a>
+                    <a href="{% url 'user_profile' pk=user.pk %}">
+                        <i class="fa fa-user-circle"></i> Мой профиль
+                    </a>
+                    <!--<a href="{% url 'home_view' %}">
+                        <i class="fa fa-newspaper-o"></i> Новости
+                    </a>
+                    <a href="{% url 'home_view' %}">
+                        <i class="fa fa-users"></i> Мои друзья
+                    </a>-->
+                </div>
+            </div>
+        
+            <div class="col-6 content">
+                <div class="card">
+                    <div class="card-body">
+                        <form method="post" name="new-post-form" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            <textarea class="form-control form-control-sm" type="text" name="text" placeholder="Что нового?"></textarea>
+                            <label for="image">Прикрепить картинку:</label>
+                            <input class="form-control form-control-sm" type="file" name="image"><br>
+                            <input class="form-control btn btn-outline-success btn-sm" type="submit" value="Добавить">
+                        </form>
+                    </div>
+                </div>
+            
+                <div class="timeline">
+    {% for post in posts %}
+        <div class="card">
+            <div class="card-body post">
+                <div class="post-title">
+                    {% if post.author.profile.avatar.name %}
+                        <img src="{{ post.author.profile.avatar.url }}" class="post-author-img img-thumbnail">
+                    {% else %}
+                        <img src="{% static 'images/user.png' %}" class="post-author-img img-thumbnail">
+                    {% endif %}
+                    <div class="post-author">
+                        {{ post.author.get_full_name }}
+                    </div>
+                    <div class="post-datetime">
+                        {{ post.datetime|date:"d M Y H:i" }}
+                    </div>
+                </div>
+                {% if post.image.name %}
+                    <img src="{{ post.image.url }}" class="img-thumbnail"><br>
+                {% endif %}
+                <div class="post-text">
+                    {{ post.text|default_if_none:""|linebreaks|urlize }}
+                </div>
+            </div>
+            <div class="card-footer">
+                <div id="comments-list-post-{{ post.id }}">
+                    {% for comment in post.comments.all %}
+                        {% place_comment comment %}
+                    {% endfor %}
+                </div>
+                <div class="comment-form">
+                    {% if post.author.profile.avatar.name %}
+                        <img src="{{ post.author.profile.avatar.url }}" class="post-author-img img-thumbnail">
+                    {% else %}
+                        <img src="{% static 'images/user.png' %}" class="post-author-img img-thumbnail">
+                    {% endif %}
+                    <div style="display: flex; margin-top: 4px;">
+                        <input class="form-control form-control-sm comment-input" placeholder="Оставить комментарий" data-post-id="{{ post.id }}">
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+</div>
+            </div>
+        
+            <div class="col-3">
+                <div class="block" style="text-align: center;">
+                    <b>{{ user.get_full_name }}</b>
+                
+                    {% if request.user.profile.profile_pic %}
+                        <img src="{{ request.user.profile.profile_pic.url }}" alt="Аватарка пользователя" class="mainpage-avatar-img img-thumbnail">
+                    {% else %}
+                        <p>Аватарка пользователя отсутствует</p>
+                    {% endif %}
+                
+                    <div class="right-menu-links">
+                        <a href="{% url 'user_profile' pk=user.pk %}" class="mainpage-avatar-img img-thumbnail">
+                            <i class="fa fa-user-circle"></i> Мой профиль
+                        </a>
+                        <a href="{% url 'edit_user_profile' pk=user.pk %}" class="mainpage-avatar-img img-thumbnail">
+                            <i class="fa fa-pencil-square"></i> Редактировать
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -16,7 +16,9 @@ urlpatterns = [
     path('create_profile/',CreateProfilePageView.as_view(), name='create_user_profile'),
     path('profile/<int:pk>/', ShowProfilePageView.as_view(), name='user_profile'),
     path('edit_profile/<int:pk>/', EditProfilePageView.as_view(), name='edit_user_profile'),
-    path('', HomeView.as_view(), name="home"),
+    path('', HomeView.as_view(), name="home_view"),
+    path('post', PostView.as_view(), name="post_view"),
+    path('post-comment/', PostCommentView.as_view()),
 ]
 
 

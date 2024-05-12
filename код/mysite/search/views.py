@@ -1,7 +1,9 @@
+from django.http import HttpResponse
+from django.views import View
 from django.views.generic import CreateView, UpdateView, TemplateView
 from django.views.generic.detail import DetailView
 from equipment.models import *
-from django.shortcuts import get_object_or_404
+from django.shortcuts import get_object_or_404, render
 from django.forms import ModelForm
 
 # To enable logging of search queries for use with the "Promoted search results" module
@@ -46,3 +48,31 @@ class EditProfilePageView(UpdateView):
 class HomeView(TemplateView):
     template_name = "HomePage/index.html"
 
+class PostView(TemplateView):
+    #template_name = "HomePage/index.html"
+    timeline_template_name = "PostPage/timeline.html"
+
+    def dispatch(self, request, *args, **kwargs):
+        if not request.user.is_authenticated:
+            return render(request, self.template_name)
+
+        context = {
+            'posts': Post.objects.all()
+        }
+        return render(request, self.timeline_template_name, context)
+
+
+class PostCommentView(View):
+    def dispatch(self, request, *args, **kwargs):
+        post_id = request.GET.get("post_id")
+        comment = request.GET.get("comment")
+
+        if comment and post_id:
+            post = Post.objects.get(pk=post_id)
+
+            comment = Comment(text=comment, post=post, author=request.user)
+            comment.save()
+
+            return render(request, "blocks/comment.html", {'comment': comment})
+
+        return HttpResponse(status=400)

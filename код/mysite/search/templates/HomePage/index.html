@@ -38,12 +38,12 @@
       </div>
     </header>
     <main class="main-content">
-      {% block content %}
+        {% block content %}
       <section class="hero">
         <div class="logo-container">
           <img src="{% static 'img/logo.svg' %}" width="197.73px" height="87.95px">
           <img src="{% static 'img/logopic.png' %}" width="113px" height="113px">
-        </div>  
+        </div>
         <div class="hero-container">
           <h1 class="hero__title">
             Добро пожаловать на<br>
@@ -67,11 +67,13 @@
         <section class="search">
           <div class="search-container">
             <div class="rectangle3">
+                  <a href="{% url 'post_view' %}" class="watch-portfolio">Смотреть портфолио</a>
             </div>
           </div>
         </section>
       {% endblock %}
     </main>
+
     <footer class="main-footer">
       <div class="footer-container">
         <ul class="footer-navigation">
