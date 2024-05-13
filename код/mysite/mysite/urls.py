@@ -5,6 +5,7 @@ from django.contrib import admin
 from wagtail.admin import urls as wagtailadmin_urls
 from wagtail import urls as wagtail_urls
 from wagtail.documents import urls as wagtaildocs_urls
+from django.conf.urls.static import static
 
 from search.views import *
 
@@ -12,15 +13,27 @@ urlpatterns = [
     path("django-admin/", admin.site.urls),
     path("admin/", include(wagtailadmin_urls)),
     path("documents/", include(wagtaildocs_urls)),
-    path('', include('allauth.urls')),
-    path('create_profile/',CreateProfilePageView.as_view(), name='create_user_profile'),
-    path('profile/<int:pk>/', ShowProfilePageView.as_view(), name='user_profile'),
-    path('edit_profile/<int:pk>/', EditProfilePageView.as_view(), name='edit_user_profile'),
     path('', HomeView.as_view(), name="home_view"),
     path('post', PostView.as_view(), name="post_view"),
-    path('post-comment/', PostCommentView.as_view()),
+    path('post-comment/', PostCommentView.as_view(), name="post_comment"),
+    path('login/', LoginView.as_view(), name="login"),
+    path('logout/', LogoutView.as_view(), name="logout"),
+    path('signup/', RegisterView.as_view(), name="signup"),
+    path('profile/<int:pk>/', ProfileView.as_view(), name="profile"),
+    path('profile/<int:pk>/edit/', EditProfileView.as_view(), name="edit_profile"),
+    path('posts/delete/<int:post_id>/', DeletePostView.as_view(), name='delete_post'),
+    path('support/', SupportView.as_view(), name="support"),
+    path('about/', AboutUs.as_view(), name="about"),
+    path('reviews/', Reviews.as_view(), name="reviews"),
+    path('support_creators/', SupportCreators.as_view(), name="support_creators"),
+
+    # path('', include('allauth.urls')),
+    # path('create_profile/',CreateProfilePageView.as_view(), name='create_user_profile'),
+    # path('profile/<int:pk>/', ShowProfilePageView.as_view(), name='user_profile'),
+    # path('edit_profile/<int:pk>/', EditProfilePageView.as_view(), name='edit_user_profile'),
 ]
 
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 if settings.DEBUG:
     from django.conf.urls.static import static

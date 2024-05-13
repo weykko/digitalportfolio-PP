@@ -26,7 +26,3 @@ function initCommenting(){
     })
 }
 
-$(document).ready(function(){
-    initBootstrapForms();
-    initCommenting();
-});
