@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+    <div class="container content">
+        <div class="row" style="margin-left: 20px;">
+            <div class="col5">
+                {% if not profile.profile_pic %}
+                    <img src="{% static 'base/images/profile/user.png' %}" class="mainpage-avatar-img">
+                {% else %}
+                    <img src="{{ profile.profile_pic.url }}" class="mainpage-avatar-img">
+                {% endif %}
+                <br>
+                <br>
+                <h2>{{ user.get_full_name }}</h2>
+
+            </div>
+            <div class="col">
+                    <!--<p><strong>Никнейм(логин):</strong> {{ selected_user.profile.user.username }}</p>-->
+    {% if profile.occupation %}
+        <p>{{ profile.occupation }}</p>
+    {% endif %}
+
+    {% if profile.city %}
+        <p><strong>Город проживания:</strong> {{ profile.city }}</p>
+    {% endif %}
+
+     {% if profile.bio %}
+        <p><strong>Расскажите о себе:</strong> {{ profile.bio }}</p>
+    {% endif %}
+
+     {% if profile.achievements %}
+        <p><strong>Достижения:</strong> {{ profile.achievements }}</p>
+    {% endif %}
+
+    {% if profile.VK %}
+        <p><strong>ВКонтакте:</strong> {{ profile.VK }}</p>
+    {% endif %}
+
+    {% if profile.Telegram %}
+        <p><strong>Telegram:</strong> {{ profile.Telegram }}</p>
+    {% endif %}
+
+    {% if profile.WhatsApp %}
+        <p><strong>WhatsApp:</strong> {{ profile.WhatsApp }}</p>
+    {% endif %}
+
+    <p><strong>Почта:</strong> {{ profile.user.email }}</p>
+        </div>
+    </div>
+
+    {% if user.id == profile.user.id %}
+        <a href="{% url 'edit_profile' profile.id %}" class="btn btn-sm btn-info">Редактировать профиль</a>
+    {% endif %}
+
+{% endblock %}

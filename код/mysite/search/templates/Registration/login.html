@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+    <div class="container content" style="text-align: center;">
+        <div style="display: inline-block; width: 300px;">
+            <h2>Войти на сайт</h2>
+            <form method="post" class="bootstrap-form" style="text-align: left;">
+                {% csrf_token %}
+
+                <p>
+                    <label for="username">Имя пользователя</label>
+                    <input type="text" id="username" name="username">
+                </p>
+
+                <p>
+                    <label for="password">Пароль</label>
+                    <input type="password" id="password" name="password">
+                </p>
+
+                <input type="submit" class="btn btn-primary" value="Войти">
+            </form>
+        </div>
+    </div>
+{% endblock %}
