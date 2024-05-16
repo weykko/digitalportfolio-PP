@@ -7,7 +7,6 @@ class Profile(models.Model):
     user = models.OneToOneField(User, verbose_name="Пользователь", on_delete=models.CASCADE)
     firstname = models.CharField(verbose_name="Имя", max_length=30, null=False)
     lastname = models.CharField(verbose_name="Фамилия", max_length=30, null=False)
-    occupation = models.CharField(verbose_name="Род деятельности", max_length=16, null=True)
     city = models.CharField(verbose_name="Город", max_length=30, null=True)
     bio = models.TextField(verbose_name="Расскажите о себе", null=True, blank=True)
     achievements = models.TextField(verbose_name="Достижения", null=True, blank=True)
