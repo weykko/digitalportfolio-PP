@@ -1,7 +1,9 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block content %}
+    <link href="{% static 'css/style_profile.css' %}" rel="stylesheet">
     <div class="container content">
+        <div class = "rectangle1"></div>
         <div class="row" style="margin-left: 20px;">
             <div class="col5">
                 {% if not profile.profile_pic %}
@@ -11,17 +13,18 @@
                 {% endif %}
                 <br>
                 <br>
-                <h2>{{ user.get_full_name }}</h2>
+                <h2 class="name">{{ user.get_full_name }}</h2>
 
             </div>
             <div class="col">
                     <!--<p><strong>Никнейм(логин):</strong> {{ selected_user.profile.user.username }}</p>-->
+    <div class="information">
     {% if profile.occupation %}
         <p>{{ profile.occupation }}</p>
     {% endif %}
 
     {% if profile.city %}
-        <p><strong>Город проживания:</strong> {{ profile.city }}</p>
+        <p class="city"><strong>Город проживания:</strong> {{ profile.city }}</p>
     {% endif %}
 
      {% if profile.bio %}
@@ -45,11 +48,12 @@
     {% endif %}
 
     <p><strong>Почта:</strong> {{ profile.user.email }}</p>
-        </div>
+    </div>
+            </div>
     </div>
 
     {% if user.id == profile.user.id %}
-        <a href="{% url 'edit_profile' profile.id %}" class="btn btn-sm btn-info">Редактировать профиль</a>
+        <a href="{% url 'edit_profile' profile.id %}" class="edit_profile">Редактировать профиль</a>
     {% endif %}
-
+    </div>
 {% endblock %}
