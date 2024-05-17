@@ -14,27 +14,29 @@
       <div class="container">
           {% if user.is_anonymous %}
               <div class="rectangle1">
-              <a href='login' class="btn btn-info">Войти</a>
+              <a href='login' class="log-in">Войти</a>
               </div>
               <div class="rectangle2">
-                   <a href='signup' class="btn btn-primary">Зарегистрироваться</a>
+                   <a href='signup' class="registration">Зарегистрироваться</a>
               </div>
           {% else %}
               <div class="rectangle1">
-              <a href='profile/{{ request.user.pk }}' class="btn btn-info">Ваш профиль</a>
+              <a href='profile/{{ request.user.pk }}' class="profile">Профиль</a>
               </div>
               <div class="rectangle2">
-              <a href='logout' class="btn btn-info">Выйти</a>
+              <a href='logout' class="log-out">Выйти</a>
               </div>
           {% endif %}
+      </div>
+
+      <div class="container2">
         <p class="social-text">Мы в Соцсетях</p>
         <div class="circle1">
           <img src="{% static 'img/vk_icon.png' %}" width="45.21" height="48.44" >
         </div>
         <div class="circle2">
           <img src="{% static 'img/tg_icon.svg' %}" width="45.21" height="48.44" >
-        </div>  
-
+        </div>
       </div>
     </header>
     <main class="main-content">

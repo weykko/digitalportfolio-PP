@@ -9,8 +9,8 @@ body {
   background-color: rgba(255, 178, 252, 1);
   background-image: url("../img/conditer.png"), url("../img/cupcake4.png"), url("../img/cupcake3.png"), url("../img/cupcake1.png"), url("../img/cupcake2.png") ;
   background-repeat: no-repeat, no-repeat, no-repeat, no-repeat, no-repeat;
-  background-size: 781px 1111px, 118.76px 118.76px, 118.76px 118.76px, 118.76px 118.76px, 118.76px ;
-  background-position: 1071px 153px, 1665px 352.5px, 1142px 573.77px, 1133.59px 782px, 1623.04px 810px;
+  background-size: 40% 320%, 118.76px 118.76px, 118.76px 118.76px, 118.76px 118.76px, 118.76px ;
+  background-position: 90% -20%, 1665px 352.5px, 1142px 573.77px, 1133.59px 782px, 1623.04px 810px;
   background-blend-mode:normal, multiply, multiply, multiply, luminosity;
   
 }
@@ -19,18 +19,20 @@ a {
   color: black;
 }
 .page-header {
-  background-color: white; 
-  width: 1943px; 
-  height: 129px; 
+  background-color: white;
+  width: 100%;
+  height: 129px;
   top: 0px; 
   left: 0px; 
-  opacity: 1;
+
 }
 .container {
-  display: flex; 
+  display: flex;
+  width: 50%;
+  height: 129px;
 }
 .rectangle1 {
-  width: 175px;
+  width: 240px;
   height: 60px;
   background: rgba(255, 178, 252, 1);
   border-radius: 40px;
@@ -49,16 +51,17 @@ a {
   margin-left: 120px;
   padding: 10px;
 }
+
 .container .log-in {
   font-weight: 400;
-  font-size: 35px;
+  font-size: 50px;
   line-height: 43px;
   color: #000000;
   width: 117px;
   position: absolute;
   height: 44px;
-  top: 8px;
-  left: 70px;
+  top: 17px;
+  left: 45px;
   text-decoration: none;
 }
 .log-in:hover {
@@ -66,20 +69,58 @@ a {
 }
 .registration {
   font-weight: 400;
-  font-size: 35px;
+  font-size: 47px;
   line-height: 43px;
   color: #000000;
   width: 390px;
   position: absolute;
   height: 44px;
-  top: 8px;
+  top: 17px;
   left: 15px;
   text-decoration: none;
 }
 .registration:hover {
   color: #cc0088; 
 }
-.social-text {
+.profile {
+  font-weight: 400;
+  font-size: 48px;
+  line-height: 43px;
+  color: #000000;
+  width: 390px;
+  position: absolute;
+  height: 44px;
+  top: 17px;
+  left: 12px;
+  text-decoration: none;
+}
+.profile:hover {
+  color: #cc0088;
+}
+.log-out {
+  font-weight: 400;
+  font-size: 48px;
+  line-height: 43px;
+  color: #000000;
+  width: 390px;
+  position: absolute;
+  height: 44px;
+  top: 17px;
+  left: 32%;
+  text-decoration: none;
+}
+.log-out:hover {
+  color: #cc0088;
+}
+.container2 {
+  display: flex;
+  position: absolute;
+  width: 47%;
+  height: 129px;
+  top: 0%;
+  right: 0%;
+}
+.container2 .social-text {
   font-weight: 400;
   font-size: 36px;
   line-height: 38.06px;
@@ -90,7 +131,7 @@ a {
   top: 8px;
   left: 370px;
 }
-.container .circle1 {
+.container2 .circle1 {
   width: 55.26px;
   height: 57.05px;
   background-color: rgba(255, 169, 246, 1); 
@@ -99,7 +140,7 @@ a {
   top: 35px;
   left: 300px;
 }
-.container .circle2 {
+.container2 .circle2 {
   width: 55.26px;
   height: 57.05px;
   background-color: rgba(255, 169, 246, 1); 
@@ -108,7 +149,7 @@ a {
   top: 35px;
   left: 360px;
 }
-.container .circle3 {
+.container2 .circle3 {
   width: 55.26px;
   height: 57.05px;
   background-color: rgba(255, 169, 246, 1); 
@@ -118,27 +159,28 @@ a {
   left: 410px;
 }
 .logo-container {
+  display: flex;
   width: 213px;
   height: 213px;
   position: relative;
-  top: 124px;
+  top: 60px;
   left: 67px;
 }
-.logo-container img[src="img/logopic.png"] {
-  position: absolute;
-  top: 33px;
-  left: 47px;
+.logo-container img:first-child {
+  position: relative;
+  z-index: 1;
 }
-.logo-container img[src="img/logo.svg"] {
+
+.logo-container img:last-child {
   position: absolute;
-  top: 0px;
-  left: 0px;
+  top: 40px;
+  left: 40px;
 }
 .hero-container {
   width: 682px;
   height: 126px;
   position: absolute;
-  top: 250px;
+  top: 170px;
   left: 298px;
 }
 .hero-container h1 {
@@ -152,7 +194,7 @@ a {
   width: 986px;
   height: 150px;
   position: absolute;
-  top: 456px;
+  top: 370px;
   left: 80px;
 }
 .article1-container h2 {
@@ -166,7 +208,7 @@ a {
   width: 814px;
   height: 147px;
   position: absolute;
-  top: 635px;
+  top: 570px;
   left: 80px;
 }
 .article2-container h2 {
@@ -180,7 +222,7 @@ a {
   width: 476px;
   height: 80px;
   position: absolute;
-  top: 880px;
+  top: 820px;
   left: 80px;
 }
 .search-container .rectangle3 {
@@ -206,10 +248,10 @@ a {
   color: #cc0088; 
 }
 .footer-container {
-  width: 1943px; 
-  height: 100px; 
-  top: 976px;
-  left: 0px;
+  width: 100%;
+  height: 5%;
+  top: 910px;
+  left: 0;
   position: absolute;
   border-top: 1px solid #8f89893f;
 }
