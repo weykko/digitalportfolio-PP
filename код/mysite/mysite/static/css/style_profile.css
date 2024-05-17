@@ -192,7 +192,7 @@ body {
   line-height: 73.14px;
   width: 10000px;
   height: 425px;
-  top: 375px;
+  top: 225px;
   left: 550px;
   position: absolute;
   border-radius: 50%;
@@ -204,8 +204,8 @@ body {
   line-height: 73.14px;
   width: 10000px;
   height: 425px;
-  top: 450px;
-  left: 550px;
+  top: -100px;
+  left: 0px;
   position: absolute;
   border-radius: 50%;
 }
@@ -227,5 +227,13 @@ body {
 }
 
 .information{
-
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 25.14px;
+  width: 10000px;
+  height: 100px;
+  top: 400px;
+  left: 550px;
+  position: absolute;
+  border-radius: 50%;
 }

@@ -19,35 +19,35 @@
             <div class="col">
                     <!--<p><strong>Никнейм(логин):</strong> {{ selected_user.profile.user.username }}</p>-->
     <div class="information">
-    {% if profile.occupation %}
-        <p>{{ profile.occupation }}</p>
-    {% endif %}
+        {% if profile.occupation %}
+            <p>{{ profile.occupation }}</p>
+        {% endif %}
 
-    {% if profile.city %}
-        <p class="city"><strong>Город проживания:</strong> {{ profile.city }}</p>
-    {% endif %}
+        {% if profile.city %}
+            <p class="city"><strong>Город проживания:</strong> {{ profile.city }}</p>
+        {% endif %}
 
-     {% if profile.bio %}
-        <p><strong>Расскажите о себе:</strong> {{ profile.bio }}</p>
-    {% endif %}
+         {% if profile.bio %}
+            <p><strong>Расскажите о себе:</strong> {{ profile.bio }}</p>
+        {% endif %}
 
-     {% if profile.achievements %}
-        <p><strong>Достижения:</strong> {{ profile.achievements }}</p>
-    {% endif %}
+         {% if profile.achievements %}
+            <p><strong>Достижения:</strong> {{ profile.achievements }}</p>
+        {% endif %}
 
-    {% if profile.VK %}
-        <p><strong>ВКонтакте:</strong> {{ profile.VK }}</p>
-    {% endif %}
+        {% if profile.VK %}
+            <p><strong>ВКонтакте:</strong> {{ profile.VK }}</p>
+        {% endif %}
 
-    {% if profile.Telegram %}
-        <p><strong>Telegram:</strong> {{ profile.Telegram }}</p>
-    {% endif %}
+        {% if profile.Telegram %}
+            <p><strong>Telegram:</strong> {{ profile.Telegram }}</p>
+        {% endif %}
 
-    {% if profile.WhatsApp %}
-        <p><strong>WhatsApp:</strong> {{ profile.WhatsApp }}</p>
-    {% endif %}
+        {% if profile.WhatsApp %}
+            <p><strong>WhatsApp:</strong> {{ profile.WhatsApp }}</p>
+        {% endif %}
 
-    <p><strong>Почта:</strong> {{ profile.user.email }}</p>
+        <p><strong>Почта:</strong> {{ profile.user.email }}</p>
     </div>
             </div>
     </div>
