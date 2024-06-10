@@ -1,105 +1,119 @@
-{% extends 'base.html' %}
 {% load my_filters %}
 {% load static %}
 {% block content %}
-    <link href="{% static 'css/styles.css' %}" rel="stylesheet">
-    <div class="container">
-        <div class="row">
-            <div class="col-3">
-                <div class="block left-menu">
-                    <a href="{% url 'home_view' %}">На главную</a>
-                    <a href='profile/{{ request.user.pk }}'>Мой профиль</a>
-                    <!--<a href="{% url 'home_view' %}">Мои подписчики</a>-->
-                </div>
-            </div>
 
-            <div class="col-6 content">
-                <div class="card">
-                    <div class="card-body">
-                        <form method="post" name="new-post-form" enctype="multipart/form-data">
-                            {% csrf_token %}
-                            <textarea class="form-control form-control-sm" type="text" name="text" placeholder="Что нового?"></textarea>
-                            <label for="image">Прикрепить картинку:</label>
-                            <input class="form-control form-control-sm" type="file" name="image"><br>
-                            <input class="form-control btn btn-outline-success btn-sm" type="submit" value="Отправить">
+<!DOCTYPE html>
+<html lang="ru">
+    <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Viaoda+Libre&display=swap" rel="stylesheet">
+        <link href="{% static 'css/styles.css' %}" rel="stylesheet">
+        <link href="{% static 'css/bootstrap.css' %}" rel="stylesheet">
+        <link href="{% static 'css/timeline.css' %}" rel="stylesheet">
+        <link href="{% static 'css/footer.css' %}" rel="stylesheet">
+    </head>
+    <body>
+        {% include 'blocks/header.html' %}
+        <main class="container">
+            <div class="row">
+                <div class="col-3">
+                    <div class="block left-menu block-color">
+                        <a href="{% url 'home_view' %}">На главную</a>
+                        <a href='profile/{{ request.user.pk }}'>Мой профиль</a>
+                        <!--<a href="{% url 'home_view' %}">Мои подписчики</a>-->
+                    </div>
+                </div>
+
+                <div class="col-6 content">
+                    <div class="card">
+                        <div class="card-body">
+                            <form method="post" name="new-post-form" enctype="multipart/form-data">
+                                {% csrf_token %}
+                                <textarea class="form-control form-control-sm" type="text" name="text" placeholder="Что нового?"></textarea>
+                                <label for="image">Прикрепить картинку:</label>
+                                <input class="form-control form-control-sm" type="file" name="image"><br>
+                                <input class="form-control btn btn-outline-success btn-sm send-button" type="submit" value="Отправить">
+                            </form>
+                        </div>
+                    </div>
+
+                    <div class="timeline">
+        {% for post in posts %}
+            <div class="card">
+                <div class="card-body post">
+                    <div class="post-title">
+                        {% if post.author.profile.profile_pic %}
+                            <img src="{{ post.author.profile.profile_pic.url }}" class="post-author-img img-thumbnail">
+                        {% else %}
+                            <img src="{% static 'base/images/profile/user.png' %}" class="post-author-img img-thumbnail">
+                        {% endif %}
+                        <div class="post-author">
+                            <a href="{% url 'profile' post.author.id %}">{{ post.author.get_full_name }} </a>
+                        </div>
+                        {% if post.author.profile.occupation %}
+                            <p> {{ post.author.profile.occupation }}</p>
+                        {% endif %}
+                        <div class="post-datetime">
+                            {{ post.datetime|date:"d M Y H:i" }}
+                        </div>
+                    </div>
+                    {% if post.image.name %}
+                        <img src="{{ post.image.url }}" class="img-thumbnail"><br>
+                    {% endif %}
+                    <div class="post-text">
+                        {{ post.text|default_if_none:""|linebreaks|urlize }}
+                    </div>
+                    {% if post.author == request.user %}
+                         <form action="{% url 'delete_post' post.id %}" method="post">
+                        {% csrf_token %}
+                        <button type="submit" class="delete-post">Удалить пост</button>
                         </form>
-                    </div>
-                </div>
+                    {% endif %}
 
-                <div class="timeline">
-    {% for post in posts %}
-        <div class="card">
-            <div class="card-body post">
-                <div class="post-title">
-                    {% if post.author.profile.profile_pic %}
-                        <img src="{{ post.author.profile.profile_pic.url }}" class="post-author-img img-thumbnail">
-                    {% else %}
-                        <img src="{% static 'base/images/profile/user.png' %}" class="post-author-img img-thumbnail">
-                    {% endif %}
-                    <div class="post-author">
-                        <a href="{% url 'profile' post.author.id %}">{{ post.author.get_full_name }} </a>
+              </form>
+                </div>
+                <div class="card-footer">
+                    <div id="comments-list-post-{{ post.id }}">
+                        {% for comment in post.comments.all %}
+                            {% place_comment comment %}
+                        {% endfor %}
                     </div>
-                    {% if post.author.profile.occupation %}
-                        <p> {{ post.author.profile.occupation }}</p>
-                    {% endif %}
-                    <div class="post-datetime">
-                        {{ post.datetime|date:"d M Y H:i" }}
-                    </div>
-                {% if post.author == request.user %}
-                     <form action="{% url 'delete_post' post.id %}" method="post">
-                    {% csrf_token %}
-                    <button type="submit">Удалить пост</button>
-                    </form>
-                {% endif %}
-                </div>
-                {% if post.image.name %}
-                    <img src="{{ post.image.url }}" class="img-thumbnail"><br>
-                {% endif %}
-                <div class="post-text">
-                    {{ post.text|default_if_none:""|linebreaks|urlize }}
-                </div>
-
-          </form>
-            </div>
-            <div class="card-footer">
-                <div id="comments-list-post-{{ post.id }}">
-                    {% for comment in post.comments.all %}
-                        {% place_comment comment %}
-                    {% endfor %}
-                </div>
-                <div class="comment-form">
-                    {% if user.profile.profile_pic.name %}
-                        <img src="{{ user.profile.profile_pic.url }}" class="post-author-img img-thumbnail">
-                    {% else %}
-                        <img src="{% static 'images/user.png' %}" class="post-author-img img-thumbnail">
-                    {% endif %}
-                    <div style="display: flex; margin-top: 4px;">
-                        <input class="form-control form-control-sm comment-input" placeholder="Оставить комментарий" data-post-id="{{ post.id }}">
+                    <div class="comment-form">
+                        {% if user.profile.profile_pic.name %}
+                            <img src="{{ user.profile.profile_pic.url }}" class="post-author-img img-thumbnail">
+                        {% else %}
+                            <img src="{% static 'images/user.png' %}" class="post-author-img img-thumbnail">
+                        {% endif %}
+                        <div style="display: flex; margin-top: 4px;">
+                            <input class="form-control form-control-sm comment-input" placeholder="Оставить комментарий" data-post-id="{{ post.id }}">
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    {% endfor %}
+        {% endfor %}
+                    </div>
                 </div>
-            </div>
 
-            <div class="col-3">
-                <div class="block" style="text-align: center;">
-                    <b>{{ user.get_full_name }}</b>
+                <div class="col-3">
+                    <div class="block" style="text-align: center;">
+                        <b>{{ user.get_full_name }}</b>
 
-                    {% if request.user.profile.profile_pic %}
-                        <img src="{{ request.user.profile.profile_pic.url }}" alt="Аватарка пользователя" class="mainpage-avatar-img img-thumbnail">
-                    {% else %}
-                        <p>Аватарка пользователя отсутствует</p>
-                    {% endif %}
+                        {% if request.user.profile.profile_pic %}
+                            <img src="{{ request.user.profile.profile_pic.url }}" alt="Аватарка пользователя" class="mainpage-avatar-img img-thumbnail" >
+                        {% else %}
+                            <p>Аватарка пользователя отсутствует</p>
+                        {% endif %}
 
-                    <div class="right-menu-links">
-                        <a href='profile/{{ request.user.pk }}' class="mainpage-avatar-img img-thumbnail">
-                            <i class="fa fa-user-circle"></i> Мой профиль
-                        </a>
+                        <div class="right-menu-links">
+                            <a href='profile/{{ request.user.pk }}' class="mainpage-avatar-img img-thumbnail">
+                                <i class="fa fa-user-circle"></i> Мой профиль
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
+        </main>
+    {% include 'blocks/footer.html' %}
+    </body>
 {% endblock %}

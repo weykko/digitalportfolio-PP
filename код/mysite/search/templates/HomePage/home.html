@@ -1,4 +1,5 @@
 {% load static wagtailcore_tags %}
+
 <!DOCTYPE html>
 <html lang="ru">
   <head>
@@ -6,95 +7,37 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Viaoda+Libre&display=swap" rel="stylesheet">
-    <link href="{% static 'css/style.css' %}" rel="stylesheet">
+
+    <link href="{% static 'css/home_style.css' %}" rel="stylesheet">
+    <link href="{% static 'css/footer.css' %}" rel="stylesheet">
+
     <title>{% block title %}Профиль{% endblock %}</title>
   </head>
-  <body >
-    <header class="page-header">
-      <div class="container">
-          {% if user.is_anonymous %}
-              <div class="rectangle1">
-              <a href='login' class="log-in">Войти</a>
-              </div>
-              <div class="rectangle2">
-                   <a href='signup' class="registration">Зарегистрироваться</a>
-              </div>
-          {% else %}
-              <div class="rectangle1">
-              <a href='profile/{{ request.user.pk }}' class="profile">Профиль</a>
-              </div>
-              <div class="rectangle2">
-              <a href='logout' class="log-out">Выйти</a>
-              </div>
-          {% endif %}
-      </div>
-
-      <div class="container2">
-        <p class="social-text">Мы в Соцсетях</p>
-        <div class="circle1">
-          <a href="https://vk.com/sweetcreations" target="_blank">
-          <img src="{% static 'img/vk_icon.png' %}" width="45.21" height="48.44" >
-        </div>
-        <div class="circle2">
-          <a href="https://t.me/sweetcreations1" target="_blank">
-          <img src="{% static 'img/tg_icon.svg' %}" width="55" height="55" >
-        </div>
-      </div>
-    </header>
+  <body>
+    {% include 'blocks/header.html' %}
     <main class="main-content">
         {% block content %}
       <section class="hero">
-        <div class="logo-container">
-          <img src="{% static 'img/logo.svg' %}" width="197.73px" height="87.95px">
-          <img src="{% static 'img/logopic.png' %}" width="113px" height="113px">
-        </div>
-        <div class="hero-container">
-          <h1 class="hero__title">
-            Добро пожаловать на<br>
-            наш сайт Sweet Creations!
+        <div class="hero-contant">
+          <div class="title-logo">
+          <img src="{% static 'img/home-logo.svg' %}" width="300" height="215">
+          <h1 class="hero-title">
+            Добро пожаловать на наш сайт Sweet Creations!
           </h1>
         </div>
-        <article class="main-article">
-          <div class="article1-container">
-            <h2>
-              Мы рады представить вам наш сайт-
-              <br>портфолио кондитерского<br> мастерства.
-            </h2>
+          <p class="main-paragraph">
+            Мы рады представить вам наш сайт-портфолио кондитерского мастерства.
+          </p>
+          <p class="main-paragraph">
+            Здесь вы можете поделиться своими вкусными и красивыми кондитерскими изделиями!
+          </p>
+          <div class="watch-button">
+                <a href="{% url 'post_view' %}" class="watch-portfolio">Смотреть портфолио</a>
           </div>
-          <div class="article2-container">
-            <h2>
-              Здесь вы можете поделиться<br> своими вкусными и красивыми<br>
-               кондитерскими изделиями!
-            </h2>
-          </div>
-        </article>
-        <section class="search">
-          <div class="search-container">
-            <div class="rectangle3">
-                  <a href="{% url 'post_view' %}" class="watch-portfolio">Смотреть портфолио</a>
-            </div>
-          </div>
-        </section>
+        </div>
+        <img src="{% static 'img/home-picture.png' %}" width="500" height="711">
       {% endblock %}
     </main>
-
-    <footer class="main-footer">
-      <div class="footer-container">
-        <ul class="footer-navigation">
-          <li class="footer-navigation-item">
-            <a href="{% url 'support' %}">Техподдержка</a>
-          </li>
-          <li class="footer-navigation-item">
-            <a href="{% url 'support_creators' %}">Поддержать авторов</a>
-          </li>
-          <li class="footer-navigation-item">
-            <a href="{% url 'about' %}">О нас</a>
-          </li>
-          <li class="footer-navigation-item">
-            <a href="{% url 'reviews' %}">Отзывы</a>
-          </li>
-        </ul>
-      </div>
-    </footer>
+  {% include 'blocks/footer.html' %}
   </body>
 </html>
