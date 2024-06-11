@@ -14,6 +14,8 @@ from mysite.forms import PostForm, RegisterForm, ProfileForm
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.contrib.auth.mixins import LoginRequiredMixin
+import django_filters
+from django_filters import DateFilter
 # To enable logging of search queries for use with the "Promoted search results" module
 # <https://docs.wagtail.org/en/stable/reference/contrib/searchpromotions.html>
 # uncomment the following line and the lines indicated in the search function
@@ -74,32 +76,6 @@ class RegisterView(TemplateView):
         }
         return render(request, self.template_name, context)
 
-'''class RegisterView(TemplateView):
-    template_name = "Registration/register.html"
-    def dispatch(self, request, *args, **kwargs):
-        form = RegisterForm()
-
-        if request.method == 'POST':
-            form = RegisterForm(request.POST)
-
-            if form.is_valid():
-                self.create_new_user(form)
-                messages.success(request, "Вы успешно зарегистрировались!")
-                return redirect("login")
-
-        context = {
-            'form': form
-        }
-        return render(request, self.template_name, context)
-
-
-    def create_new_user(self, form: RegisterForm):
-        User.objects.create_user(
-            username=form.cleaned_data['username'],
-            email=form.cleaned_data.get("email"),
-            password=form.cleaned_data['password'],
-
-        )'''
 
 class LoginView(TemplateView):
     template_name = "Registration/login.html"
@@ -167,31 +143,6 @@ class EditProfileView(TemplateView):
 class HomeView(TemplateView):
     template_name = "HomePage/home.html"
 
-'''class PostView(TemplateView):
-
-    timeline_template_name = "PostPage/timeline.html"
-
-    def dispatch(self, request, *args, **kwargs):
-        if not request.user.is_authenticated:
-            return render(request, self.template_name)
-
-        if request.method == 'POST':
-            form = PostForm(request.POST, request.FILES)
-            if form.is_valid():
-                form.instance.author = request.user
-                form.save()
-                return redirect("post_view")
-
-        if 'delete_post_id' in request.POST:
-            post_id_to_delete = request.POST.get('delete_post_id')
-            post_to_delete = Post.objects.filter(author=request.user, id=post_id_to_delete)
-            if post_to_delete.exists():
-                post_to_delete.delete()
-
-        context = {
-            'posts': Post.objects.all()
-        }
-        return render(request, self.timeline_template_name, context)'''
 
 class PostView(TemplateView):
 
@@ -242,7 +193,31 @@ class PostCommentView(View):
 
         return HttpResponse(status=400)
 
+def like_post(request, post_id):
+    post = get_object_or_404(Post, id=post_id)
+    if request.user in post.likes.all():
+        post.likes.remove(request.user)
+    else:
+        post.likes.add(request.user)
+    return redirect('post_view', post_id=post_id)
 
+
+class PostFilter(django_filters.FilterSet):
+    date = DateFilter(field_name='datetime', lookup_expr='date')
+    has_image = django_filters.BooleanFilter(field_name='image', lookup_expr='isnull', exclude=True)
+    text_length = django_filters.NumberFilter(method='filter_by_text_length')
+
+    class Meta:
+        model = Post
+        fields = []
+
+    def filter_by_text_length(self, queryset, name, value):
+        return queryset.filter(text__length__gte=value)
+
+# Представление для списка постов с фильтром
+def post_list(request):
+    post_filter = PostFilter(request.GET, queryset=Post.objects.all())
+    return render(request, 'your_template.html', {'filter': post_filter})
 
 
 
@@ -259,37 +234,4 @@ class Reviews(TemplateView):
 class SupportCreators(TemplateView):
     template_name = "Stuff/supportcreators.html"
 
-
-'''class ShowProfilePageView(DetailView):
-    model = Profile
-    template_name = 'Profile/user_profile.html'
-
-    def get_context_data(self, **kwargs):
-        context = super(ShowProfilePageView, self).get_context_data(**kwargs)
-
-        # Get the page user based on the pk from the URL
-        page_user = get_object_or_404(Profile, pk=self.kwargs['pk'])
-
-        context['page_user'] = page_user
-        return context
-
-class CreateProfilePageView(CreateView):
-    model = Profile
-
-    template_name = 'Profile/create_profile.html'
-    fields = ['profile_pic', 'user', "firstname", "lastname", 'city', 'bio', 'achievements', 'VK','Telegram', 'WhatsApp']
-    def form_valid(self, form):
-        form.instance.user = self.request.user
-        return super().form_valid(form)
-
-
-class ProfileForm(ModelForm):
-    class Meta:
-        model = Profile
-        fields = ['profile_pic', 'user',"firstname", "lastname", 'city', 'bio', 'achievements', 'VK','Telegram', 'WhatsApp']
-
-class EditProfilePageView(UpdateView):
-    model = Profile
-    template_name = 'Profile/edit_profile_page.html'
-    form_class = ProfileForm'''
 

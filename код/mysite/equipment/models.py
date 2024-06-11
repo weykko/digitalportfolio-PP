@@ -32,10 +32,16 @@ class Post(models.Model):
     author = models.ForeignKey(User, verbose_name="Автор", on_delete=models.CASCADE, related_name="posts")
     image = models.FileField(verbose_name="Картинка", null=True, blank=True)
     text = models.CharField(verbose_name="Текст", max_length=1000, null=True, blank=True)
-    likes = models.ManyToManyField(User,verbose_name="Лайк", related_name="likes", blank=True)
+    likes = models.ManyToManyField(User, verbose_name="Лайк", related_name="liked_posts", blank=True)
 
     class Meta:
         ordering = ["-datetime"]
+
+    def __str__(self):
+        return self.text
+
+    def total_likes(self):
+        return self.likes.count()
 
 class Comment(models.Model):
     datetime = models.DateTimeField(verbose_name="Дата", auto_now_add=True)

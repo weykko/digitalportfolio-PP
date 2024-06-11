@@ -12,6 +12,7 @@
         <link href="{% static 'css/bootstrap.css' %}" rel="stylesheet">
         <link href="{% static 'css/timeline.css' %}" rel="stylesheet">
         <link href="{% static 'css/footer.css' %}" rel="stylesheet">
+        <script src="{% static 'js/main.js' %}"></script>
     </head>
     <body>
         {% include 'blocks/header.html' %}
@@ -38,62 +39,64 @@
                         </div>
                     </div>
 
-                    <div class="timeline">
-        {% for post in posts %}
-            <div class="card">
-                <div class="card-body post">
-                    <div class="post-title">
-                        {% if post.author.profile.profile_pic %}
-                            <img src="{{ post.author.profile.profile_pic.url }}" class="post-author-img img-thumbnail">
-                        {% else %}
-                            <img src="{% static 'base/images/profile/user.png' %}" class="post-author-img img-thumbnail">
-                        {% endif %}
-                        <div class="post-author">
-                            <a href="{% url 'profile' post.author.id %}">{{ post.author.get_full_name }} </a>
-                        </div>
-                        {% if post.author.profile.occupation %}
-                            <p> {{ post.author.profile.occupation }}</p>
-                        {% endif %}
-                        <div class="post-datetime">
-                            {{ post.datetime|date:"d M Y H:i" }}
-                        </div>
-                    </div>
-                    {% if post.image.name %}
-                        <img src="{{ post.image.url }}" class="img-thumbnail"><br>
+<div class="timeline">
+    {% for post in posts %}
+        <div class="card">
+            <div class="card-body post">
+                <div class="post-title">
+                    {% if post.author.profile.profile_pic %}
+                        <img src="{{ post.author.profile.profile_pic.url }}" class="post-author-img img-thumbnail">
+                    {% else %}
+                        <img src="{% static 'base/images/profile/user.png' %}" class="post-author-img img-thumbnail">
                     {% endif %}
-                    <div class="post-text">
-                        {{ post.text|default_if_none:""|linebreaks|urlize }}
+                    <div class="post-author">
+                        <a href="{% url 'profile' post.author.id %}">{{ post.author.get_full_name }} </a>
                     </div>
-                    {% if post.author == request.user %}
-                         <form action="{% url 'delete_post' post.id %}" method="post">
+                    {% if post.author.profile.occupation %}
+                        <p>{{ post.author.profile.occupation }}</p>
+                    {% endif %}
+                    <div class="post-datetime">
+                        {{ post.datetime|date:"d M Y H:i" }}
+                    </div>
+                </div>
+                {% if post.image %}
+                    <img src="{{ post.image.url }}" class="img-thumbnail"><br>
+                {% endif %}
+                <div class="post-text">
+                    {{ post.text|default_if_none:""|linebreaks|urlize }}
+                </div>
+                {% if post.author == request.user %}
+                    <form action="{% url 'delete_post' post.id %}" method="post">
                         {% csrf_token %}
                         <button type="submit" class="delete-post">Удалить пост</button>
-                        </form>
-                    {% endif %}
-
-              </form>
+                    </form>
+                {% endif %}
+                <div class="like-section">
+                    <button class="like-btn" data-id="{{ post.id }}">
+                        Лайк (<span class="like-count">{{ post.total_likes }}</span>)
+                    </button>
                 </div>
-                <div class="card-footer">
-                    <div id="comments-list-post-{{ post.id }}">
-                        {% for comment in post.comments.all %}
-                            {% place_comment comment %}
-                        {% endfor %}
-                    </div>
-                    <div class="comment-form">
-                        {% if user.profile.profile_pic.name %}
-                            <img src="{{ user.profile.profile_pic.url }}" class="post-author-img img-thumbnail">
-                        {% else %}
-                            <img src="{% static 'images/user.png' %}" class="post-author-img img-thumbnail">
-                        {% endif %}
-                        <div style="display: flex; margin-top: 4px;">
-                            <input class="form-control form-control-sm comment-input" placeholder="Оставить комментарий" data-post-id="{{ post.id }}">
-                        </div>
+            </div>
+            <div class="card-footer">
+                <div id="comments-list-post-{{ post.id }}">
+                    {% for comment in post.comments.all %}
+                        {% place_comment comment %}
+                    {% endfor %}
+                </div>
+                <div class="comment-form">
+                    {% if user.profile.profile_pic %}
+                        <img src="{{ user.profile.profile_pic.url }}" class="post-author-img img-thumbnail">
+                    {% else %}
+                        <img src="{% static 'images/user.png' %}" class="post-author-img img-thumbnail">
+                    {% endif %}
+                    <div style="display: flex; margin-top: 4px;">
+                        <input class="form-control form-control-sm comment-input" placeholder="Оставить комментарий" data-post-id="{{ post.id }}">
                     </div>
                 </div>
             </div>
-        {% endfor %}
-                    </div>
-                </div>
+        </div>
+    {% endfor %}
+</div>
 
                 <div class="col-3">
                     <div class="block" style="text-align: center;">

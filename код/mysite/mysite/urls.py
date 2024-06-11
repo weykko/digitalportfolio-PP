@@ -21,6 +21,7 @@ urlpatterns = [
     path('signup/', RegisterView.as_view(), name="signup"),
     path('profile/<int:pk>/', ProfileView.as_view(), name="profile"),
     path('profile/<int:pk>/edit/', EditProfileView.as_view(), name="edit_profile"),
+    path('post/<int:post_id>/like/', like_post, name='like_post'),
     path('posts/delete/<int:post_id>/', DeletePostView.as_view(), name='delete_post'),
     path('support/', SupportView.as_view(), name="support"),
     path('about/', AboutUs.as_view(), name="about"),
