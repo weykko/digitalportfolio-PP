@@ -1,37 +1,31 @@
 body {
-  font-family: Montserrat, sans-serif;
-  font-size: 48px;
-  line-height: 60.27px;
-  font-weight: 400;
+    margin: 0;
+    font-family: Montserrat;
+}
+
+main{
+    background-color: #FFB2FC;
+    background-blend-mode: luminosity, normal;
+    background-image: url("../img/keks1.png");
+}
+
+.content {
   margin: 0;
   padding: 0;
-  color: #000000;
-  background-color: rgba(255, 178, 252, 1);
-
+  text-align: center;
 }
-.container-fluid{
+
+.container-fluid {
   background-color: white;
   width: 100%;
   height: 129px;
   top: 0px;
   left: 0px;
 }
-.navbar-brand{
-    font-weight: 400;
-  font-size: 55px;
-  line-height: 43px;
-  color: #000000;
-  width: 500px;
-  position: absolute;
-  height: 44px;
-  top: 40px;
-  left: 15px;
-  text-decoration: none;
-}
 
-.on_main{
-    font-weight: 400;
-  font-size: 55px;
+.on_main {
+  font-weight: 400;
+  font-size: 25px;
   line-height: 43px;
   color: #000000;
   width: 500px;
@@ -46,149 +40,62 @@ body {
   color: #cc0088;
 }
 
+main {
+  background-color: #FFB2FC;
+}
+
 .square {
-  width: 710px;
-  height: 800px;
+  height: 610px;
+  width: 450px;
+  display: inline-block;
   background-color: #F2A1FF;
   border-radius: 60px;
   border: 1px solid #20112C;
-  position: absolute;
-  top: 17%;
-  left: 30%;
-
+  padding: 20px 17px 0px;
+  margin-top: 90px;
+  margin-bottom: 89px;
+  text-align: center;
 }
 
-.square h2{
-    font-weight: 200;
-  font-size: 70px;
-  line-height: 43px;
+.square h2 {
+  font-weight: 400;
+  font-size: 40px;
   color: #000000;
-  width: 500px;
-  position: absolute;
-  height: 44px;
-  top: 15px;
-  left: 100px;
-  text-decoration: none;
+  margin-bottom: 15px;
+
 }
 
-.username{
-    font-weight: 200;
-  font-size: 55px;
-  line-height: 43px;
+.bootstrap-form {
+  font-weight: 400;
+  font-size: 25px;
   color: #000000;
-  width: 500px;
-  position: absolute;
-  height: 44px;
-  top: 130px;
-  left: 17%;
-  text-decoration: none;
-}
-.text{
-    font-size: 30px;
-    width: 470px;
-  position: absolute;
-  height: 44px;
-  top: 60px;
-  left: 0%;
-    border-radius: 15px;
-}
-.password_input{
-    font-weight: 200;
-  font-size: 55px;
-  line-height: 43px;
-  color: #000000;
-  width: 500px;
-  position: absolute;
-  height: 44px;
-  top: 275px;
-  left: 35%;
-  text-decoration: none;
-
-}
-.input_password{
-    font-size: 30px;
-     width: 470px;
-  position: absolute;
-  height: 44px;
-  top: 60px;
-  left: -25.5%;
-    border-radius: 15px;
-}
-.login_input{
-    background-color: #7D27C0;
-    border-radius: 15px;
-    width: 480px;
-  position: absolute;
-  height: 120px;
-  top: 500px;
-  left: 17%;
-    border-radius: 15px;
+  text-align: left;
+  margin: 0 auto;
+  width: 80%;
+  text-align: center;
 }
 
-.text_on_login{
-    color: white;
-    width: 480px;
-  position: absolute;
-  height: 120px;
-  top: 475px;
-  left: 38%;
-     z-index: 5;
-    pointer-events: none;
-}
-.footer-container {
-  width: 100%;
-  height: 5%;
-  top: 1000px;
-  left: 0;
-  position: absolute;
-}
-.footer-navigation {
-  list-style-type: none;
-}
-
-.footer-navigation-item {
-  display: inline-block;
-  margin-right: 20px;
-}
-.footer-container .footer-navigation-item a {
-  text-decoration: none;
-  color: #000000;
-  transition: color 0.3s;
-  top: 0px;
-}
-
-.footer-container .footer-navigation-item a:hover {
-  color: #cc0088;
-}
-.bootstrap-form{
-  font-weight: 200;
-  font-size: 35px;
-  line-height: 43px;
-  color: #000000;
-  width: 500px;
-  position: absolute;
-  height: 44px;
-  top: 130px;
-  left: 17%;
-  text-decoration: none;
-  text-align: justify;
-}
-
-.bootstrap-form input{
-  font-size: 30px;
-  width: 500px;
-  height: 35px;
-  left: 17%;
+.bootstrap-form input {
+  font-size: 25px;
+  width: 320px;
+  height: 40px;
+  display: block;
+  margin:  0 auto;
+  margin-top: 5px;
+  margin-bottom: 1px;
   border-radius: 15px;
+  padding: 5px 15px;
+  box-sizing: border-box;
+  border: none;
 }
 
-.register_text{
-  font-size: 50px;
-  width: 500px;
-  height: 100%;
-  left: 17%;
+.register_text {
+  font-size: 30px;
+  width: 100%;
+  height: 60px;
   border-radius: 15px;
   background-color: #7D27C0;
+  color: white;
+  border: none;
+  cursor: pointer;
 }
-
-

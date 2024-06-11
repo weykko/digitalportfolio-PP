@@ -1,16 +1,50 @@
-{% extends 'base.html' %}
-{% load static %}
+{% load static wagtailcore_tags %}
 {% block content %}
+<head>
+    <meta charset="utf-8">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Viaoda+Libre&display=swap" rel="stylesheet">
     <link href="{% static 'css/edit_profile.css' %}" rel="stylesheet">
-    <div class="container content" style="text-align: center;">
-        <div style="display: inline-block; width: 400px;">
-            <h2>Редактировать профиль</h2>
-            <form method="post" class="bootstrap-form" enctype="multipart/form-data">
-                {% csrf_token %}
-                {{ form.as_p }}
+    <title>Вход</title>
+</head>
+<body>
+    <link href="{% static 'css/header.css' %}" rel="stylesheet">
+    <header class="page-header">
+          <div class="header-container1">
+                  <div class="rectangle1">
+                  <a href="{% url 'home_view' %}" class="log-in">На главную</a>
+                  </div>
+                  <div class="rectangle2">
+                       <a href="{% url 'logout' %}" class="registration">Выйти</a>
+                  </div>
+          </div>
 
-                <input type="submit" class="btn btn-primary" value="Сохранить">
-            </form>
+          <div class="header-container2">
+            <div class="circle1">
+              <a href="https://vk.com/sweetcreations" target="_blank">
+              <img src="{% static 'img/vk_icon.png' %}" width="50" height="50" >
+              </a>
+            </div>
+            <div class="circle2">
+              <a href="https://t.me/sweetcreations1" target="_blank">
+              <img src="{% static 'img/tg-icon.png' %}" width="50" height="50" >
+              </a>
+            </div>
+          </div>
+    </header>
+    <main>
+        <div class="container content" style="text-align: center;">
+            <div style="display: inline-block; width: 400px;">
+                <h2>Редактировать профиль</h2>
+                <form method="post" class="bootstrap-form" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <input type="submit" class="btn btn-primary" value="Сохранить">
+                </form>
+            </div>
         </div>
-    </div>
+    </main>
+    {% include 'blocks/footer.html' %}
+</body>>
 {% endblock %}

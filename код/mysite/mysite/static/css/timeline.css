@@ -1,59 +1,104 @@
 body {
-  font-family: Montserrat, sans-serif;
-
-  margin: 0;
-  padding: 0;
-  color: white;
-  background-color: rgba(255, 178, 252, 1);
-  background-blend-mode: luminosity, normal;
+    font-family: Montserrat, sans-serif;
+    margin: 0;
+    padding: 0;
+    color: white;
+    background-color: rgba(255, 178, 252, 1);
+    background-blend-mode: luminosity, normal;
+    background-color: #FFB2FC;
+    background-image: url("../img/keks1.png");
 }
 
-main{
+.post-photo{
+    border: 0;
+    margin: 0;
+    padding: 0;
+    margin-bottom: 10px;
+}
+
+main {
     padding-top: 25px;
     margin: 0;
+
 }
 
-img.mainpage-avatar-img{
+img.mainpage-avatar-img {
     display: block;
     margin: 0 auto;
     width: 200px;
+    height: 200px;
+    border: 0;
+    border-radius: 50%;
 }
 
-.right-menu-links{
+.comment-form img{
+    border-radius: 50%;
+    border: 0;
+    width: 40px;
+    height: 40px;
+}
+
+.post-title img{
+    border-radius: 50%;
+    border: 0;
+    width: 40px;
+    height: 40px;
+}
+
+.right-menu-links {
     margin: 25px 0px 20px;
 }
 
-.block-color{
-  background-color: white;
+.block-color {
+    background-color: white;
 }
 
 .delete-post {
     background-color: #7D27C0;
-    color: white; /* Белый цвет текста */
-    border: none; /* Убираем рамку */
-    padding: 5px 15px; /* Внутренние отступы */
-    border-radius: 5px; /* Закругленные углы */
-    cursor: pointer; /* Курсор в виде руки при наведении */
-    font-size: 14px; /* Размер шрифта */
-    transition: background-color 0.3s ease; /* Плавный переход цвета фона */
-    margin: 0px 0px 10px 0px;
+    color: white;
+    border: none;
+    padding: 5px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s ease;
+    margin: 0;
+    opacity: 0.75;
+}
+
+.buttons{
+    display: flex;
+    justify-content: space-between;
+}
+
+
+.like-btn {
+    background-color: #FF4040;
+    color: white;
+    border: none;
+    padding: 5px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s ease;
+    margin: 0;
+    opacity: 0.75;
 }
 
 .delete-post:hover {
     opacity: 0.7;
 }
 
-.send-button{
+.send-button {
     border-color: #7D27C0;
     color: #7D27C0;
 }
 
-a{
+a {
     text-decoration: none;
     color: black;
 }
 
-.left-menu a{
+.left-menu a {
     color: black;
 }
-

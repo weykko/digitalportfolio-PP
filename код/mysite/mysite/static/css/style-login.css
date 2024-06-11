@@ -1,164 +1,116 @@
 body {
-  font-family: Montserrat, sans-serif;
-  font-size: 48px;
-  line-height: 60.27px;
-  font-weight: 400;
-  margin: 0;
-  padding: 0;
-  color: #000000;
-  background-color: rgba(255, 178, 252, 1);
+    margin: 0;
+    font-family: Montserrat;
+}
+
+main {
+    background-color: #FFB2FC;
+    background-blend-mode: luminosity, normal;
+    background-image: url("../img/keks1.png");
 
 }
-.container-fluid{
-  background-color: white;
-  width: 100%;
-  height: 129px;
-  top: 0px;
-  left: 0px;
+.page-header {
+
 }
-.navbar-brand{
+.content {
+    margin: 0 auto;
+    display: flex;
+
+}
+.login-content {
+    border-radius: 60px;
+    border: 1px solid rgba(32, 17, 44, 1);
+    background-color: rgba(242, 161, 255, 1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    top: 50%;
+    left: 50%;
+    margin: 90px auto;
+    padding: 50px 80px 60px;
+}
+h2 {
+    margin: 0;
+    padding: 0;
+    font-size: 40px;
     font-weight: 400;
-  font-size: 55px;
-  line-height: 43px;
-  color: #000000;
-  width: 500px;
-  position: absolute;
-  height: 44px;
-  top: 40px;
-  left: 15px;
-  text-decoration: none;
+    text-align: center;
+    margin-bottom: 50px;
 }
-
-.on_main{
+.username {
+    margin: 0;
+}
+.username-text {
+    margin: 0;
+    text-align: center;
     font-weight: 400;
-  font-size: 55px;
-  line-height: 43px;
-  color: #000000;
-  width: 500px;
-  position: absolute;
-  height: 44px;
-  top: 40px;
-  left: 500px;
-  text-decoration: none;
+    font-size: 25px;
+    color: #000000;
+    margin-bottom: 10px;
 }
-
-.on_main:hover {
-  color: #cc0088;
-}
-
-.square {
-  width: 710px;
-  height: 800px;
-  background-color: #F2A1FF;
-  border-radius: 60px;
-  border: 1px solid #20112C;
-  position: absolute;
-  top: 17%;
-  left: 30%;
+.username-button {
+    margin:  0 auto;
+    display: block;
+    background-color: rgba(246, 246, 246, 1);
+    border-radius: 10px;
+    border: white;
+    width: 320px;
+    height: 40px;
+    font-size: 20px;
+    color: #000000;
+    margin-bottom: 20px;
 
 }
-
-.square h2{
-    font-weight: 200;
-  font-size: 70px;
-  line-height: 43px;
-  color: #000000;
-  width: 500px;
-  position: absolute;
-  height: 44px;
-  top: 17px;
-  left: 100px;
-  text-decoration: none;
-}
-
-.username{
-    font-weight: 200;
-  font-size: 55px;
-  line-height: 43px;
-  color: #000000;
-  width: 500px;
-  position: absolute;
-  height: 44px;
-  top: 130px;
-  left: 17%;
-  text-decoration: none;
-}
-.text{
-    font-size: 30px;
-    width: 470px;
-  position: absolute;
-  height: 44px;
-  top: 60px;
-  left: 0%;
-    border-radius: 15px;
-}
-.password_input{
-    font-weight: 200;
-  font-size: 55px;
-  line-height: 43px;
-  color: #000000;
-  width: 500px;
-  position: absolute;
-  height: 44px;
-  top: 275px;
-  left: 35%;
-  text-decoration: none;
+.password {
+    font-family: inherit;
+    margin: 0;
+    text-align: center;
+    font-weight: 400;
+    font-size: 25px;
+    color: #000000;
+    margin-bottom: 10px;
 
 }
-.input_password{
-    font-size: 30px;
-     width: 470px;
-  position: absolute;
-  height: 44px;
-  top: 60px;
-  left: -25.5%;
-    border-radius: 15px;
+.input_password {
+    margin:  0 auto;
+    display: block;
+    background-color: rgba(246, 246, 246, 1);
+    border-radius: 10px;
+    border: white;
+    width: 320px;
+    height: 40px;
+    font-size: 20px;
+    color: #000000;
+    margin-bottom: 60px;
+
 }
-.login_input{
-    background-color: #7D27C0;
-    border-radius: 15px;
-    width: 480px;
-  position: absolute;
-  height: 120px;
-  top: 500px;
-  left: 17%;
-}
-.login_input:active {
-  background-color: #7d0053;
+.input_password::placeholder {
+    font-family: Montserrat;
 }
 
-.text_on_login{
+.login_input {
+    display: block;
+    margin: auto;
+    width: 200px;
+    height: 60px;
+    background-color: rgba(125, 39, 192, 1);
+    border-radius: 20px;
     color: white;
-    width: 480px;
-  position: absolute;
-  height: 120px;
-  top: 475px;
-  left: 38%;
-     z-index: 5;
-    pointer-events: none;
+    font-size: 25px;
+    margin-bottom: 60px;
+    border: 0;
+
 }
-.footer-container {
-  width: 100%;
-  height: 5%;
-  top: 1000px;
-  left: 0;
-  position: absolute;
+.login_input:hover {
+    opacity: 75%;
 }
-.footer-navigation {
-  list-style-type: none;
+.keks {
+    margin:auto;
+    text-align: center;
 }
 
-.footer-navigation-item {
-  display: inline-block;
-  margin-right: 20px;
-}
-.footer-container .footer-navigation-item a {
-  text-decoration: none;
-  color: #000000;
-  transition: color 0.3s;
-  top: 0px;
-}
 
-.footer-container .footer-navigation-item a:hover {
-  color: #cc0088;
+
+.main-footer {
+
 }
