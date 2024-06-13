@@ -13,6 +13,7 @@
     <link href="{% static 'css/timeline.css' %}" rel="stylesheet">
     <link href="{% static 'css/footer.css' %}" rel="stylesheet">
     <script src="{% static 'js/main.js' %}"></script>
+    <script src="{% static 'js/scripts.js' %}"></script>
 </head>
 <body>
     {% include 'blocks/header.html' %}
@@ -88,8 +89,8 @@
                                     {% endfor %}
                                 </div>
                                 <div class="comment-form">
-                                    {% if user.profile.profile_pic %}
-                                        <img src="{{ user.profile.profile_pic.url }}" class="post-author-img img-thumbnail">
+                                    {% if post.author.profile.avatar.name %}
+                                        <img src="{{ post.author.profile.avatar.url }}" class="post-author-img img-thumbnail">
                                     {% else %}
                                         <img src="{% static 'images/user.png' %}" class="post-author-img img-thumbnail">
                                     {% endif %}
@@ -123,3 +124,4 @@
     {% include 'blocks/footer.html' %}
 </body>
 {% endblock %}
+

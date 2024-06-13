@@ -26,3 +26,9 @@ function initCommenting(){
     })
 }
 
+$(document).ready(function(){
+    initBootstrapForms();
+    initCommenting();
+});
+
+document.getElementById('target').scrollIntoView({ behavior: 'smooth' });

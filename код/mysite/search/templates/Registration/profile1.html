@@ -20,7 +20,7 @@
                     {% else %}
                         <img src="{{ profile.profile_pic.url }}" class="mainpage-avatar-img">
                     {% endif %}
-                    <h2 class="name">{{ user.get_full_name }}</h2>
+                    <h2 class="name">{{ profile.firstname }} {{ profile.lastname }}</h2>
                 </div>
                 <div class="col">
                     <div class="information">
