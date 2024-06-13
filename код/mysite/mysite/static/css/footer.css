@@ -1,0 +1,23 @@
+.main-footer {
+    background-color: white;
+}
+
+.footer-navigation {
+  display: flex;
+  gap: 60px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  padding: 15px 30px;
+  justify-content: center;
+}
+
+.footer-navigation-item a:hover{
+    color: #7D27C0;
+}
+
+.footer-navigation-item a{
+    color: black;
+    text-decoration: none;
+    font-size: 20px;
+}

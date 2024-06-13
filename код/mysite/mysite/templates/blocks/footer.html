@@ -1,0 +1,20 @@
+{% load static wagtailcore_tags %}
+<link href="{% static 'css/footer.css' %}" rel="stylesheet">
+<footer class="main-footer">
+      <div class="footer-container">
+        <ul class="footer-navigation">
+          <li class="footer-navigation-item">
+            <a href="{% url 'support' %}">Техподдержка</a>
+          </li>
+          <li class="footer-navigation-item">
+            <a href="{% url 'support_creators' %}">Поддержать авторов</a>
+          </li>
+          <li class="footer-navigation-item">
+            <a href="{% url 'about' %}">О нас</a>
+          </li>
+          <li class="footer-navigation-item">
+            <a href="{% url 'reviews' %}">Отзывы</a>
+          </li>
+        </ul>
+      </div>
+</footer>

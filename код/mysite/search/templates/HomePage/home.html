@@ -1,0 +1,43 @@
+{% load static wagtailcore_tags %}
+
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Viaoda+Libre&display=swap" rel="stylesheet">
+
+    <link href="{% static 'css/home_style.css' %}" rel="stylesheet">
+    <link href="{% static 'css/footer.css' %}" rel="stylesheet">
+
+    <title>{% block title %}Профиль{% endblock %}</title>
+  </head>
+  <body>
+    {% include 'blocks/header.html' %}
+    <main class="main-content">
+        {% block content %}
+      <section class="hero">
+        <div class="hero-contant">
+          <div class="title-logo">
+          <img src="{% static 'img/home-logo.svg' %}" width="300" height="215">
+          <h1 class="hero-title">
+            Добро пожаловать на наш сайт Sweet Creations!
+          </h1>
+        </div>
+          <p class="main-paragraph">
+            Мы рады представить вам наш сайт-портфолио кондитерского мастерства.
+          </p>
+          <p class="main-paragraph">
+            Здесь вы можете поделиться своими вкусными и красивыми кондитерскими изделиями!
+          </p>
+          <div class="watch-button">
+                <a href="{% url 'post_view' %}" class="watch-portfolio">Смотреть портфолио</a>
+          </div>
+        </div>
+        <img src="{% static 'img/home-picture.png' %}" width="500" height="711">
+      {% endblock %}
+    </main>
+  {% include 'blocks/footer.html' %}
+  </body>
+</html>

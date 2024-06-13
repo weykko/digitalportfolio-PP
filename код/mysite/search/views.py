@@ -1,46 +1,237 @@
-from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
-from django.template.response import TemplateResponse
-
-from wagtail.models import Page
-
+from django.http import HttpResponse, JsonResponse, HttpResponseRedirect
+from django.views import View
+from django.views.generic import CreateView, UpdateView, TemplateView
+from django.views.generic.detail import DetailView
+from equipment.models import *
+from django.shortcuts import get_object_or_404, render
+from django.forms import ModelForm
+from django.contrib import messages
+from django.contrib.auth.models import User
+from django.shortcuts import redirect, render
+from django.views.generic import TemplateView
+from django.contrib.auth import logout, authenticate, login
+from mysite.forms import PostForm, RegisterForm, ProfileForm
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+from django.contrib.auth.mixins import LoginRequiredMixin
+import django_filters
+from django_filters import DateFilter
 # To enable logging of search queries for use with the "Promoted search results" module
 # <https://docs.wagtail.org/en/stable/reference/contrib/searchpromotions.html>
 # uncomment the following line and the lines indicated in the search function
 # (after adding wagtail.contrib.search_promotions to INSTALLED_APPS):
 
-# from wagtail.contrib.search_promotions.models import Query
+# Create your models here.
 
-
-def search(request):
-    search_query = request.GET.get("query", None)
-    page = request.GET.get("page", 1)
-
-    # Search
-    if search_query:
-        search_results = Page.objects.live().search(search_query)
-
-        # To log this query for use with the "Promoted search results" module:
-
-        # query = Query.get(search_query)
-        # query.add_hit()
-
+@receiver(post_save, sender=Profile)
+def update_user_info(sender, instance, created, **kwargs):
+    if created:
+        instance.user.first_name = instance.firstname
+        instance.user.last_name = instance.lastname
     else:
-        search_results = Page.objects.none()
+        instance.user.first_name = instance.firstname
+        instance.user.last_name = instance.lastname
+    instance.user.save()
 
-    # Pagination
-    paginator = Paginator(search_results, 10)
-    try:
-        search_results = paginator.page(page)
-    except PageNotAnInteger:
-        search_results = paginator.page(1)
-    except EmptyPage:
-        search_results = paginator.page(paginator.num_pages)
+class RegisterView(TemplateView):
+    template_name = "Registration/register.html"
 
-    return TemplateResponse(
-        request,
-        "search/search.html",
-        {
-            "search_query": search_query,
-            "search_results": search_results,
-        },
-    )
+    def check_existing_user(self, form):
+        username = form.cleaned_data.get('username')
+        email = form.cleaned_data.get('email')
+        if User.objects.filter(username=username).exists():
+            messages.error(self.request, "Пользователь с таким логином уже зарегистрирован.")
+            return True
+        if User.objects.filter(email=email).exists():
+            messages.error(self.request, "Пользователь с такой почтой уже зарегистрирован.")
+            return True
+        return False
+
+    def create_new_user(self, form):
+        if not self.check_existing_user(form):
+            username = form.cleaned_data.get('username')
+            email = form.cleaned_data.get('email')
+            password = form.cleaned_data.get('password')
+            User.objects.create_user(username=username, email=email, password=password)
+
+    def dispatch(self, request, *args, **kwargs):
+        form = RegisterForm()
+
+        if request.method == 'POST':
+            form = RegisterForm(request.POST)
+
+            if form.is_valid():
+                if self.check_existing_user(form):
+                    context = {
+                        'form': form
+                    }
+                    return render(request, self.template_name, context)
+                else:
+                    self.create_new_user(form)
+                    messages.success(request, "Вы успешно зарегистрировались!")
+                    return redirect("login")
+
+        context = {
+            'form': form
+        }
+        return render(request, self.template_name, context)
+
+
+class LoginView(TemplateView):
+    template_name = "Registration/login.html"
+
+    def dispatch(self, request, *args, **kwargs):
+        if request.method == 'GET':
+            return render(request, self.template_name)
+
+        if request.method == 'POST':
+            username = request.POST['username']
+            password = request.POST['password']
+            user = authenticate(request, username=username, password=password)
+            if user is None:
+                messages.error(request, "Неверный логин или пароль")
+                return render(request, self.template_name)
+
+            login(request, user)
+
+            profile = Profile.objects.filter(user=request.user).first()
+            if not profile:
+                return redirect("edit_profile", pk=request.user.pk)
+            else:
+                return redirect("profile", pk=request.user.pk)
+
+class LogoutView(View):
+    def dispatch(self, request, *args, **kwargs):
+        logout(request)
+        return redirect("/")
+
+class ProfileView(TemplateView):
+    template_name = "Registration/profile.html"
+
+    def dispatch(self, request, *args, **kwargs):
+        profile = get_object_or_404(Profile, pk=kwargs['pk'])
+
+        context = {
+            'profile': profile
+        }
+
+        return render(request, self.template_name, context)
+
+class EditProfileView(TemplateView):
+    template_name = "Registration/edit_profile.html"
+
+    def dispatch(self, request, *args, **kwargs):
+        form = ProfileForm(instance=self.get_profile(request.user))
+
+        if request.method == 'POST':
+            form = ProfileForm(request.POST, request.FILES, instance=self.get_profile(request.user))
+            if form.is_valid():
+                form.instance.user = request.user
+                form.save()
+
+                messages.success(request, "Профиль успешно обновлен!")
+                return redirect("profile", pk = request.user.pk)
+
+        return render(request, self.template_name, {'form': form})
+
+    def get_profile(self, user: User) -> Profile | None:
+        if not Profile.objects.filter(user=user).exists():
+            return None
+
+        return user.profile
+
+class HomeView(TemplateView):
+    template_name = "HomePage/home.html"
+
+
+class PostView(TemplateView):
+
+    timeline_template_name = "PostPage/timeline.html"
+
+    def dispatch(self, request, *args, **kwargs):
+        if not request.user.is_authenticated:
+            return render(request, self.template_name)
+
+        if request.method == 'POST':
+            form = PostForm(request.POST, request.FILES)
+            if form.is_valid():
+                form.instance.author = request.user
+                form.save()
+
+                return redirect("post_view")
+
+        context = {
+            'posts': Post.objects.all()
+        }
+        return render(request, self.timeline_template_name, context)
+
+class DeletePostView(LoginRequiredMixin, View):
+    def post(self, request, *args, **kwargs):
+        post_id = kwargs.get('post_id')
+        try:
+            post = Post.objects.get(id=post_id)
+            if post.author == request.user:
+                post.delete()
+        except Post.DoesNotExist:
+            # Handle the case when the post does not exist
+            pass
+
+        return redirect('post_view')  # Redirect to the post list view after deletion
+
+class PostCommentView(View):
+    def dispatch(self, request, *args, **kwargs):
+        post_id = request.GET.get("post_id")
+        comment = request.GET.get("comment")
+
+        if comment and post_id:
+            post = Post.objects.get(pk=post_id)
+
+            comment = Comment(text=comment, post=post, author=request.user.profile)
+            comment.save()
+
+            return render(request, "mysite/templates/blocks/comment.html", {'comment': comment})
+
+        return HttpResponse(status=400)
+
+def like_post(request, post_id):
+    post = get_object_or_404(Post, id=post_id)
+    if request.user in post.likes.all():
+        post.likes.remove(request.user)
+    else:
+        post.likes.add(request.user)
+    return redirect('post_view', post_id=post_id)
+
+
+class PostFilter(django_filters.FilterSet):
+    date = DateFilter(field_name='datetime', lookup_expr='date')
+    has_image = django_filters.BooleanFilter(field_name='image', lookup_expr='isnull', exclude=True)
+    text_length = django_filters.NumberFilter(method='filter_by_text_length')
+
+    class Meta:
+        model = Post
+        fields = []
+
+    def filter_by_text_length(self, queryset, name, value):
+        return queryset.filter(text__length__gte=value)
+
+# Представление для списка постов с фильтром
+def post_list(request):
+    post_filter = PostFilter(request.GET, queryset=Post.objects.all())
+    return render(request, 'your_template.html', {'filter': post_filter})
+
+
+
+class SupportView(TemplateView):
+    template_name = "Stuff/support.html"
+
+class AboutUs(TemplateView):
+    template_name = "Stuff/aboutus.html"
+
+class Reviews(TemplateView):
+    template_name = "Stuff/reviews.html"
+    #Тут еще что-то будет
+
+class SupportCreators(TemplateView):
+    template_name = "Stuff/supportcreators.html"
+
+

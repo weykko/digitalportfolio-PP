@@ -1,0 +1,82 @@
+body {
+    margin: 0;
+    font-family: Montserrat;
+}
+.profile-main {
+    background-color: #FFB2FC;
+    background-blend-mode: luminosity, normal;
+    background-image: url("../img/keks1.png");
+    margin: 0 auto;
+}
+.container {
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    padding-top: 20px;
+    padding-bottom: 380px;
+}
+
+.mainpage-avatar-img {
+    border-radius: 50%;
+    width: 200px;
+    height: 200px;
+    display: block;
+    margin: 0;
+    margin-bottom: 20px;
+}
+
+.information-block {
+    width: 800px;
+    border-radius: 15px;
+    border: 0;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+
+
+}
+
+.edit-profile-button {
+    margin-top: 20px;
+}
+.edit_profile {
+    border-radius: 15px;
+    display: flex;
+    justify-content: center;
+    width: 200px;
+    align-self: center;
+    text-decoration: none;
+    color: white;
+    padding: 15px;
+    box-sizing:border-box;
+    background-color: rgba(125, 39, 192, 1);
+
+}
+.edit_profile:hover {
+    opacity: 0.75;
+
+}
+.name {
+    margin: 0;
+    margin-bottom: 10px;
+    display: block;
+    padding: 10px;
+}
+.about {
+    margin: 0;
+}
+.info-box {
+    background-color: rgb(255, 221, 249, 0.5);
+    padding: 5px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+}
+.about-title {
+    margin: 0;
+    margin-bottom: 10px;
+}
+.about-container {
+    margin-bottom: 0px;
+}

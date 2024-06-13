@@ -1,0 +1,95 @@
+{% load static wagtailcore_tags %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="utf-8">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Viaoda+Libre&display=swap" rel="stylesheet">
+    <link href="{% static 'css/header.css' %}" rel="stylesheet">
+    <link href="{% static 'css/style_profile.css' %}" rel="stylesheet">
+    <title>Профиль</title>
+</head>
+
+<header class="page-header">
+      <div class="header-container1">
+              <div class="rectangle1">
+              <a href="{% url 'home_view' %}" class="log-in">На главную</a>
+              </div>
+              <div class="rectangle2">
+              <a href="{% url 'logout' %}" class="log-out">Выйти</a>
+              </div>
+      </div>
+
+      <div class="header-container2">
+        <div class="circle1">
+          <a href="https://vk.com/sweetcreations" target="_blank">
+          <img src="{% static 'img/vk_icon.png' %}" width="50" height="50" >
+          </a>
+        </div>
+        <div class="circle2">
+          <a href="https://t.me/sweetcreations1" target="_blank">
+          <img src="{% static 'img/tg-icon.png' %}" width="50" height="50" >
+          </a>
+        </div>
+      </div>
+</header>
+  <body>
+    <main class="profile-main">
+        <div class="container">
+            <div class="avatar-edit">
+                {% if not profile.profile_pic %}
+                        <img src="{% static 'base/images/profile/user.png' %}" class="mainpage-avatar-img">
+                {% else %}
+                        <img src="{{ profile.profile_pic.url }}" class="mainpage-avatar-img">
+                {% endif %}
+                <div class="edit-profile-button">
+                    <a href="{% url 'edit_profile' profile.id %}" class="edit_profile">Редактировать</a>
+                </div>
+            </div>    
+            <div class="information-block">
+                <h2 class="name">{{ user.get_full_name }}</h2>
+                <div class="list-information">
+                    {% if profile.occupation %}
+                            <p>{{ profile.occupation }}</p>
+                        {% endif %}
+
+                    {% if profile.city %}
+                        <p class="city info-box">Город проживания: {{ profile.city }}</p>
+                    {% endif %}
+
+                    {% if profile.VK %}
+                        <p class="vk info-box"> ВКонтакте: {{ profile.VK }}</p>
+                    {% endif %}
+
+                    {% if profile.Telegram %}
+                        <p class="tg info-box">Telegram: {{ profile.Telegram }}</p>
+                    {% endif %}
+
+                    {% if profile.WhatsApp %}
+                        <p class="phone info-box">Телефон: {{ profile.WhatsApp }}</p>
+                    {% endif %}
+
+                    <p class="mail info-box">Почта: {{ profile.user.email }}</p>
+
+                    <div class="about-container info-box">
+                        {% if profile.bio %}
+                        <p class="about-title">Расскажите о себе: {{ profile.bio }}</p>
+                        {% endif %}
+
+                        {% if profile.achievements %}
+                            <p class="about">Достижения: {{ profile.achievements }}</p>
+                        {% endif %}
+                    </div>
+                </div>
+                
+            </div>
+        </div>    
+    </main>
+  </body>
+  {% include 'blocks/footer.html' %}
+</html>    
+{% endblock %}
+
+

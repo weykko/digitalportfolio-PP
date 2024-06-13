@@ -1,0 +1,76 @@
+.page-header {
+
+}
+
+.watch-button a:hover {
+    color: #7D27C0;
+
+}
+
+.main-footer {
+
+}
+
+body {
+    margin: 0;
+    font-family: Montserrat;
+}
+
+.main-content {
+    background-color: #FFB2FC;
+}
+
+.hero {
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    padding: 50px;
+}
+
+.title-logo {
+    display: flex;
+    align-items: flex-start;
+    gap: 100px;
+    margin-bottom: 25px;
+}
+
+.hero-contant {
+    margin: 50px 30px;
+}
+
+.hero-title {
+    font-weight: 400;
+    font-size: 60px;
+    margin: 0;
+    padding: 0;
+}
+
+.main-paragraph {
+    font-size: 40px;
+    margin: 0;
+    margin-bottom: 20px;
+}
+
+.watch-button {
+    width: 450px;
+    height: 70px;
+    border-radius: 30px;
+    background-color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+    margin-top: 80px;
+}
+
+.watch-button a {
+    color: black;
+    text-decoration: none;
+    font-size: 35px;
+
+}
+
+a {
+    color: black;
+    text-decoration: none;
+}
