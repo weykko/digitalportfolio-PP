@@ -1,5 +1,6 @@
 {% load static wagtailcore_tags %}
 {% block content %}
+
 <!DOCTYPE html>
 <html lang="ru">
 <head>
@@ -32,6 +33,7 @@
       </div>
 </header>
     <main>
+        {% include 'blocks/messages.html' %}
         <div class="container content">
             <div class="square">
                 <div>
@@ -40,6 +42,7 @@
                         {% csrf_token %}
                         {{ form.as_p }}
                         <input type="submit" class="register_text" value="Регистрация">
+
                     </form>
                 </div>
             </div>

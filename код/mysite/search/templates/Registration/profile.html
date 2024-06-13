@@ -44,12 +44,14 @@
                 {% else %}
                         <img src="{{ profile.profile_pic.url }}" class="mainpage-avatar-img">
                 {% endif %}
-                <div class="edit-profile-button">
-                    <a href="{% url 'edit_profile' profile.id %}" class="edit_profile">Редактировать</a>
-                </div>
+                {% if profile.id == request.user.profile.id %}
+                    <div class="edit-profile-button">
+                        <a href="{% url 'edit_profile' profile.id %}" class="edit_profile">Редактировать</a>
+                    </div>
+                {% endif %}
             </div>    
             <div class="information-block">
-                <h2 class="name">{{ user.get_full_name }}</h2>
+                <h2 class="name">{{ profile.firstname }} {{ profile.lastname }}</h2>
                 <div class="list-information">
                     {% if profile.occupation %}
                             <p>{{ profile.occupation }}</p>

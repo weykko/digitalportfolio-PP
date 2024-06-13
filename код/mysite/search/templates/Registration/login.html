@@ -44,7 +44,9 @@
         </div>
       </div>
 </header>
+
 <main class="login-main">
+    {% include 'blocks/messages.html' %}
     <div class="container content" style="text-align: center;">
         <div class = "login-content">
                 <h2>Войти на сайт</h2>
@@ -60,6 +62,7 @@
                             <input class="input_password" type="password" id="password" name="password">
                         </div>
                     <input class="login_input" type="submit" class="btn btn-primary" value="Войти">
+
                     <div class="keks">
                         <img src="{% static 'img/keks2.png' %}" width="263" height="52">
                     </div>
