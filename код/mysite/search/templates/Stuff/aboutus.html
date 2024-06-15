@@ -1,10 +1,74 @@
+{% load static wagtailcore_tags %}
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-
-</body>
+<html lang="ru">
+    <head>
+        <meta charset="utf-8">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Viaoda+Libre&display=swap" rel="stylesheet">
+        <title>Наша команда</title>
+        <link href="{% static 'css/aboutus.css' %}" rel="stylesheet">
+        <link href="{% static 'css/header.css' %}" rel="stylesheet">
+        <link href="{% static 'css/footer.css' %}" rel="stylesheet">
+    </head>
+    <body>
+        <header class="page-header">
+            <div class="header-container1">
+                <div class="rectangle1">
+                    <a href="{% url 'home_view' %}" class="log-in">На главную</a>
+                </div>
+                <div class="rectangle2">
+                    <a href="{% url 'logout' %}" class="log-out">Выйти</a>
+                </div>
+            </div>
+            <div class="header-container2">
+                <div class="circle1">
+                    <a href="https://vk.com/sweetcreations" target="_blank">
+                        <img src="{% static 'img/vk_icon.png' %}" width="50" height="50">
+                    </a>
+                </div>
+                <div class="circle2">
+                    <a href="https://t.me/sweetcreations1" target="_blank">
+                        <img src="{% static 'img/tg-icon.png' %}" width="50" height="50">
+                    </a>
+                </div>
+            </div>
+        </header>
+        <main>
+            <h1>Наша команда</h1>
+            <div class="gallery">
+                <div class="image-container">
+                    <img src="{% static 'img/Aleksandr.jpg' %}">
+                    <p>Александр Безунтров</p>
+                    <span>Тим-лидер</span>
+                </div>
+                <div class="image-container">
+                    <img src="{% static 'img/Nickolay.jpg' %}">
+                    <p>Николай Нагиев</п>
+                    <span>Аналитик</span>
+                </div>
+                <div class="image-container">
+                    <img src="{% static 'img/Svyatoslav.jpg' %}">
+                    <p>Святослав Лебедкин</п>
+                    <span>Дизайнер</span>
+                </div>
+                <div class="image-container">
+                    <img src="{% static 'img/Anna.jpg' %}">
+                    <p>Анна Андрус</п>
+                    <span>Front-end разработчик</span>
+                </div>
+                <div class="image-container">
+                    <img src="{% static 'img/Ivan.jpg' %}">
+                    <p>Иван Куликов</п>
+                    <span>Front-end разработчик</span>
+                </div>
+                <div class="image-container">
+                    <img src="{% static 'img/Eugeniy.jpg' %}">
+                    <p>Евгений Егоров</п>
+                    <span>Back-end разработчик</span>
+                </div>
+            </div>
+        </main>
+        {% include 'blocks/footer.html' %}
+    </body>
 </html>

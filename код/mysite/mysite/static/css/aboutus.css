@@ -1,0 +1,58 @@
+body {
+    margin: 0;
+    font-family: Montserrat;
+}
+
+main {
+    background-color: #FFB2FC;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    flex-grow: 1;
+    background-blend-mode: luminosity, normal;
+    background-image: url("../img/keks1.png");
+}
+
+h1 {
+    text-align: center;
+    margin-top: 40px;
+    margin-bottom: 60px;
+    font-size: 2em;
+    color: balck;
+}
+
+.gallery {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    max-width: 700px;
+    width: 100%;
+    justify-content: center;
+    margin-bottom: 17px
+}
+
+.image-container {
+    text-align: center;
+    max-width: 200px;
+}
+
+.image-container img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+}
+
+.image-container p {
+    margin-top: 10px;
+    font-size: 16px;
+    color: black;
+}
+
+.image-container span {
+    display: block;
+    margin-top: 5px;
+    font-size: 14px;
+    color: black;
+}
