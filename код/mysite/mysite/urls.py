@@ -15,7 +15,8 @@ urlpatterns = [
     path("documents/", include(wagtaildocs_urls)),
     path('', HomeView.as_view(), name="home_view"),
     path('post', PostView.as_view(), name="post_view"),
-    path('post-comment/', PostCommentView.as_view(), name="post_comment"),
+    path('post/<int:post_id>/comment/', add_comment, name='add_comment'),
+    path('comment/delete/<int:comment_id>/', delete_comment, name='delete_comment'),
     path('login/', LoginView.as_view(), name="login"),
     path('logout/', LogoutView.as_view(), name="logout"),
     path('signup/', RegisterView.as_view(), name="signup"),
@@ -27,6 +28,8 @@ urlpatterns = [
     path('about/', AboutUs.as_view(), name="about"),
     path('reviews/', Reviews.as_view(), name="reviews"),
     path('support_creators/', SupportCreators.as_view(), name="support_creators"),
+    path('user/follow/<int:pk>/', ProfileFollowingCreateView.as_view(), name='follow'),
+    path('posts/', post_list, name='post_list')
 
     # path('', include('allauth.urls')),
     # path('create_profile/',CreateProfilePageView.as_view(), name='create_user_profile'),

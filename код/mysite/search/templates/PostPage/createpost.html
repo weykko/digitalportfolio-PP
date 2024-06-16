@@ -1,0 +1,30 @@
+{% load static %}
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Создать пост</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Viaoda+Libre&display=swap" rel="stylesheet">
+    <link href="{% static 'css/styles.css' %}" rel="stylesheet">
+    <link href="{% static 'css/bootstrap.css' %}" rel="stylesheet">
+    <link href="{% static 'css/timeline.css' %}" rel="stylesheet">
+    <link href="{% static 'css/footer.css' %}" rel="stylesheet">
+    <script src="{% static 'js/main.js' %}"></script>
+    <script src="{% static 'js/scripts.js' %}"></script>
+</head>
+<body>
+    <div class="col-6 content">
+        <div class="card">
+            <div class="card-body">
+                <form method="post" name="new-post-form" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <textarea class="form-control form-control-sm" type="text" name="text" placeholder="Что нового?"></textarea><label for="image">Прикрепить картинку:</label>
+                    <input class="form-control form-control-sm" type="file" name="image"><br>
+                    <input class="form-control btn btn-outline-success btn-sm send-button" type="submit" value="Отправить">
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

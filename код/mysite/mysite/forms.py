@@ -25,3 +25,9 @@ class PostForm(ModelForm):
     class Meta:
         model = Post
         exclude = ['author']
+
+class ProfileForm(forms.ModelForm):
+    class Meta:
+        model = Profile
+        fields = ['profile_pic', 'user', 'firstname', 'lastname', 'city',
+                  'bio',  'achievements', 'VK', 'Telegram', 'WhatsApp']

@@ -1,5 +1,5 @@
+{% load static wagtailcore_tags%}
 {% load my_filters %}
-{% load static %}
 {% block content %}
 
 <!DOCTYPE html>
@@ -22,106 +22,107 @@
             <div class="col-3">
                 <div class="block left-menu block-color">
                     <a href="{% url 'home_view' %}">На главную</a>
-                    <a href='profile/{{ request.user.pk }}'>Мой профиль</a>
-                    <!--<a href="{% url 'home_view' %}">Мои подписчики</a>-->
+                    {% if user.is_authenticated %}
+                        <a href='profile/{{ request.user.pk }}'>Мой профиль</a>
+                        <!--<a href="{% url 'home_view' %}">Мои подписчики</a>-->
+                    {% endif %}
                 </div>
-            </div>
+                {% if user.is_authenticated %}
+                    <div class="filters-container">
+                        <!-- Форма сортировки -->
+                        <form method="get" action="" class="sort-form">
+                            <label for="sort_by">Сортировка:</label>
+                            <select name="sort_by" id="sort_by" class="custom-select" onchange="this.form.submit()">
+                                <option value="date_new" {% if request.GET.sort_by == 'date_new' %}selected{% endif %}>Самое свежее</option>
+                                <option value="date_old" {% if request.GET.sort_by == 'date_old' %}selected{% endif %}>Самое старое</option>
+                                <option value="character_count_large" {% if request.GET.sort_by == 'character_count_large' %}selected{% endif %}>Больше символов</option>
+                                <option value="character_count" {% if request.GET.sort_by == 'character_count' %}selected{% endif %}>Меньше символов</option>
+                                <option value="likes" {% if request.GET.sort_by == 'likes' %}selected{% endif %}>По количеству лайков</option>
+                                <option value="comments" {% if request.GET.sort_by == 'comments' %}selected{% endif %}>По количеству комментариев</option>
+                            </select>
+                        </form>
 
-            <div class="col-6 content">
-                <div class="card">
-                    <div class="card-body">
-                        <form method="post" name="new-post-form" enctype="multipart/form-data">
-                            {% csrf_token %}
-                            <textarea class="form-control form-control-sm" type="text" name="text" placeholder="Что нового?"></textarea>
-                            <label for="image">Прикрепить картинку:</label>
-                            <input class="form-control form-control-sm" type="file" name="image"><br>
-                            <input class="form-control btn btn-outline-success btn-sm send-button" type="submit" value="Отправить">
+                        <!-- Форма фильтрации -->
+                        <form class="filter-form" method="get" action="">
+                            <label for="has_photo">Наличие фото:</label>
+                            <select name="has_photo" id="has_photo" class="custom-select">
+                                <option value="">--Похрен--</option>
+                                <option value="1" {% if request.GET.has_photo == '1' %}selected{% endif %}>С фото</option>
+                                <option value="0" {% if request.GET.has_photo == '0' %}selected{% endif %}>Без фото</option>
+                            </select>
+
+                            <!-- Форма фильтрации по городам -->
+                            {{ city_filter_form.as_p }}
+                            <button type="submit" class="filter-button">Применить фильтры</button>
                         </form>
                     </div>
-                </div>
-
-                <div class="timeline">
-                    {% for post in posts %}
-                        <div class="card">
-                            <div class="card-body post">
-                                <div class="post-title">
-                                    {% if post.author.profile.profile_pic %}
-                                        <img src="{{ post.author.profile.profile_pic.url }}" class="post-author-img img-thumbnail">
-                                    {% else %}
-                                        <img src="{% static 'base/images/profile/user.png' %}" class="post-author-img img-thumbnail">
-                                    {% endif %}
-                                    <div class="post-author">
-                                        <a href="{% url 'profile' post.author.id %}">{{ post.author.get_full_name }} </a>
-                                    </div>
-                                    {% if post.author.profile.occupation %}
-                                        <p>{{ post.author.profile.occupation }}</p>
-                                    {% endif %}
-                                    <div class="post-datetime">
-                                        {{ post.datetime|date:"d M Y H:i" }}
-                                    </div>
-                                </div>
-                                {% if post.image %}
-                                    <img src="{{ post.image.url }}" class="img-thumbnail post-photo"><br>
-                                {% endif %}
-                                <div class="post-text">
-                                    {{ post.text|default_if_none:""|linebreaks|urlize }}
-                                </div>
-                                <div class="buttons">
-                                    <div class="like-section">
-                                        <button class="like-btn" data-id="{{ post.id }}">
-                                            Лайк (<span class="like-count">{{ post.total_likes }}</span>)
-                                        </button>
-                                    </div>
-                                    <div class="delete-section">
-                                        {% if post.author == request.user %}
-                                        <form action="{% url 'delete_post' post.id %}" method="post">
-                                            {% csrf_token %}
-                                            <button type="submit" class="delete-post">Удалить пост</button>
-                                        </form>
-                                        {% endif %}
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="card-footer">
-                                <div id="comments-list-post-{{ post.id }}">
-                                    {% for comment in post.comments.all %}
-                                        {% place_comment comment %}
-                                    {% endfor %}
-                                </div>
-                                <div class="comment-form">
-                                    {% if post.author.profile.avatar.name %}
-                                        <img src="{{ post.author.profile.avatar.url }}" class="post-author-img img-thumbnail">
-                                    {% else %}
-                                        <img src="{% static 'images/user.png' %}" class="post-author-img img-thumbnail">
-                                    {% endif %}
-                                    <div style="display: flex; margin-top: 4px;">
-                                        <input class="form-control form-control-sm comment-input" placeholder="Оставить комментарий" data-post-id="{{ post.id }}">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    {% endfor %}
-                </div>
+                {% endif %}
             </div>
 
-            <div class="col-3">
-                <div class="block right-menu block-color" style="text-align: center;">
-                    <b>{{ user.get_full_name }}</b>
-                    {% if request.user.profile.profile_pic %}
-                        <img src="{{ request.user.profile.profile_pic.url }}" alt="Аватарка пользователя" class="mainpage-avatar-img img-thumbnail">
-                    {% else %}
-                        <p>Аватарка пользователя отсутствует</p>
-                    {% endif %}
-                    <div class="right-menu-links">
-                        <a href='profile/{{ request.user.pk }}' class="mainpage-avatar-img img-thumbnail">
-                            <i class="fa fa-user-circle"></i> Мой профиль
-                        </a>
+
+        <div class="col-6 content">
+            <div class="timeline">
+                {% include 'PostPage/post.html' %}
+            </div>
+        </div>
+            {% if user.is_authenticated %}
+                <div class="col-3">
+                    <div class="block right-menu block-color" style="text-align: center;">
+                        <b>{{ user.get_full_name }}</b>
+                        {% if request.user.profile.profile_pic %}
+                            <img src="{{ request.user.profile.profile_pic.url }}" alt="Аватарка пользователя" class="mainpage-avatar-img img-thumbnail">
+                        {% else %}
+                            <p>Аватарка пользователя отсутствует</p>
+                        {% endif %}
+                        <div class="right-menu-links">
+                            <a href='profile/{{ request.user.pk }}' class="mainpage-avatar-img img-thumbnail">
+                                <i class="fa fa-user-circle"></i> Мой профиль
+                            </a>
+                        </div>
                     </div>
                 </div>
-            </div>
+            {% endif %}
         </div>
     </main>
     {% include 'blocks/footer.html' %}
 </body>
 {% endblock %}
 
+<style>
+.filters-container {
+    margin-bottom: 20px;
+}
+
+
+.sort-form, .filter-form {
+    margin: 10px 0;
+}
+
+
+.filter-button {
+    margin-top: 10px;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: #4CAF50;
+    color: white;
+    cursor: pointer;
+}
+
+.filter-button:hover {
+    background-color: #45a049;
+}
+
+.custom-select {
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-size: 16px;
+    width: 100%;
+    max-width: 300px;
+}
+
+#city-select {
+    color: #333;
+}
+</style>

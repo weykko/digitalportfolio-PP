@@ -1,16 +1,16 @@
 {% load static wagtailcore_tags %}
 {% block content %}
 {% include 'blocks/messages.html' %}
-
-<!DOCTYPE html>
 <html lang="ru">
 <head>
     <meta charset="utf-8">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Viaoda+Libre&display=swap" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <link href="{% static 'css/header.css' %}" rel="stylesheet">
     <link href="{% static 'css/style_profile.css' %}" rel="stylesheet">
+    <link href="{% static 'css/bootstrap.css' %}" rel="stylesheet">
     <title>Профиль</title>
 </head>
 
@@ -47,12 +47,22 @@
                         <img src="{{ profile.profile_pic.url }}" class="mainpage-avatar-img">
                 {% endif %}
 
-                {% if profile.id == request.user.profile.id %}
-                    <div class="edit-profile-button">
-                        <a href="{% url 'edit_profile' profile.id %}" class="edit_profile">Редактировать</a>
-                    </div>
-                {% endif %}
-            </div>    
+                    {% if request.user.is_authenticated and request.user != profile.user %} {% if request.user.profile in profile.followers.all %}
+					    <button class="btn btn-sm btn-danger btn-follow" data-pk="{{ profile.pk }}">
+						    Отписаться
+					    </button>
+					{% else %}
+					    <button class="btn btn-sm btn-primary btn-follow" data-pk="{{ profile.pk}}">
+						    Подписаться на обновления
+					    </button>
+					{% endif %} {% elif request.user == profile.user %}
+					    <div class="edit-profile-button">
+                            <a href="{% url 'edit_profile' profile.id %}" class="edit_profile">Редактировать</a>
+                        </div>
+					{% endif %}
+
+
+            </div>
             <div class="information-block">
                 <h2 class="name">{{ profile.firstname }} {{ profile.lastname }}</h2>
                 <div class="list-information">
@@ -88,13 +98,113 @@
                         {% endif %}
                     </div>
                 </div>
-                
             </div>
-        </div>    
+        </div>
+
+        <div class="card border-0">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <h6 class="card-title">
+                            Подписки
+                        </h6>
+                        <div class="card-text">
+                            <div class="row">
+                                {% for following in profile.following.all %}
+                                <div class="col-md-2">
+                                    <a href="{{ following.get_absolute_url }}">
+                                        <img src="{{ following.get_avatar }}" class="img-fluid rounded-1" alt="{{ following }}" />
+                                    </a>
+                                </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <h6 class="card-title">
+                            Подписчики
+                        </h6>
+                        <div class="card-text">
+                            <div class="row followers-box">
+                                {% for follower in profile.followers.all %}
+                                <div class="col-md-2" id="user-slug-{{ follower.slug }}">
+                                    <a href="{{ follower.get_absolute_url }}">
+                                        <img src="{{ follower.get_avatar }}" class="img-fluid rounded-1" alt="{{ follower }}" />
+                                    </a>
+                                </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {% if profile.id == request.user.profile.id %}
+            {% include 'PostPage/createpost.html' %}
+        {% endif %}
+         <div class="col-6 content">
+            <div class="timeline">
+                {% include 'PostPage/post.html' %}
+            </div>
+        </div>
     </main>
   </body>
   {% include 'blocks/footer.html' %}
 </html>    
 {% endblock %}
 
+{% block script %}
+<script src="{% static '/js/profile.js' %}"></script>
+{% endblock %}
 
+<style>
+    .post-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px; /* Расстояние между постами */
+    margin: 20px 0;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.post {
+    flex: 1 1 calc(33.333% - 40px); /* Три поста в ряд */
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    transition: transform 0.3s ease;
+    padding: 20px;
+}
+
+.post:hover {
+    transform: translateY(-5px);
+}
+
+.post img {
+    width: 100%;
+    height: auto;
+    border-radius: 10px 10px 0 0;
+}
+
+.post-content {
+    padding: 15px;
+}
+
+.post-title {
+    font-size: 1.5em;
+    margin: 0 0 10px;
+    color: #333;
+}
+
+.post-text {
+    font-size: 1em;
+    color: #666;
+    line-height: 1.6;
+}
+
+
+</style>

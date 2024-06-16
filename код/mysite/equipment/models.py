@@ -13,7 +13,7 @@ class Profile(models.Model):
     VK = models.CharField(verbose_name="Ваш Вконтакте", max_length=50, null=True, blank=True)
     Telegram = models.CharField(verbose_name="Ваш Телеграм", max_length=50, null=True, blank=True)
     WhatsApp = models.CharField(verbose_name="Ваш WhatsApp", max_length=50, null=True, blank=True)
-    #mail = models.CharField(max_length=50, null=True, blank=True)
+    subscriptions = models.ManyToManyField('self', symmetrical=False, related_name='subscribers', blank=True)
 
     def __str__(self):
         return str(self.user)
@@ -43,14 +43,20 @@ class Post(models.Model):
     def total_likes(self):
         return self.likes.count()
 
+    def has_photo(self):
+        return bool(self.image)
+
 class Comment(models.Model):
-    datetime = models.DateTimeField(verbose_name="Дата", auto_now_add=True)
-    author = models.ForeignKey(User, verbose_name="Автор", on_delete=models.CASCADE, related_name="comments")
-    post = models.ForeignKey(Post, verbose_name="Пост", on_delete=models.CASCADE, related_name="comments")
-    text = models.CharField(verbose_name="Текст", max_length=1000, null=True, blank=True)
+    post = models.ForeignKey(Post, verbose_name="Пост", related_name="comments", on_delete=models.CASCADE)
+    author = models.ForeignKey(User, verbose_name="Автор", on_delete=models.CASCADE)
+    text = models.TextField(verbose_name="Текст комментария")
+    created_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:
-        ordering = ["datetime"]
+        ordering = ["created_at"]
+
+    def __str__(self):
+        return self.text
 
 '''@register_snippet
 class PortfolioOperator(models.Model):
