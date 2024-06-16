@@ -52,31 +52,39 @@ body {
     padding: 15px;
     box-sizing:border-box;
     background-color: rgba(125, 39, 192, 1);
-
+    transition: background-color 0.3s, color 0.3s;
 }
+
 .edit_profile:hover {
-    opacity: 0.75;
-
+    background-color: rgba(145, 59, 212, 1);
+    color: white;
 }
+
 .name {
     margin: 0;
     margin-bottom: 10px;
     display: block;
     padding: 10px;
 }
+
 .about {
     margin: 0;
+    word-wrap: break-word;
 }
+
 .info-box {
     background-color: rgb(255, 221, 249, 0.5);
     padding: 5px;
     border-radius: 5px;
     margin-bottom: 20px;
 }
+
 .about-title {
     margin: 0;
     margin-bottom: 10px;
 }
+
 .about-container {
     margin-bottom: 0px;
+    word-wrap: break-word;
 }

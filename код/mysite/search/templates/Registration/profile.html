@@ -14,8 +14,10 @@
 
 <header class="page-header">
       <div class="header-container1">
-              <div class="rectangle1">
-              <a href="{% url 'home_view' %}" class="log-in">На главную</a>
+              <div>
+                  <a href="{% url 'home_view' %}">
+                    <img src="{% static 'img/Header-logo.svg' %}" width="80" height="80" >
+                  </a>
               </div>
               <div class="rectangle2">
               <a href="{% url 'logout' %}" class="log-out">Выйти</a>
@@ -49,13 +51,13 @@
                         <a href="{% url 'edit_profile' profile.id %}" class="edit_profile">Редактировать</a>
                     </div>
                 {% endif %}
-            </div>    
+            </div>
             <div class="information-block">
                 <h2 class="name">{{ profile.firstname }} {{ profile.lastname }}</h2>
                 <div class="list-information">
                     {% if profile.occupation %}
                             <p>{{ profile.occupation }}</p>
-                        {% endif %}
+                    {% endif %}
 
                     {% if profile.city %}
                         <p class="city info-box">Город проживания: {{ profile.city }}</p>
@@ -79,19 +81,15 @@
                         {% if profile.bio %}
                         <p class="about-title">Расскажите о себе: {{ profile.bio }}</p>
                         {% endif %}
-
-                        {% if profile.achievements %}
-                            <p class="about">Достижения: {{ profile.achievements }}</p>
-                        {% endif %}
                     </div>
                 </div>
-                
+
             </div>
-        </div>    
+        </div>
     </main>
   </body>
   {% include 'blocks/footer.html' %}
-</html>    
+</html>
 {% endblock %}
 
 
