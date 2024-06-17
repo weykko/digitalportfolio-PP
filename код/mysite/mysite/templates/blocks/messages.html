@@ -1,3 +1,5 @@
+{% load static wagtailcore_tags %}
+<link href="{% static 'css/messages.css' %}" rel="stylesheet">
 {% for message in messages %}
     {% if message.tags == 'success' %}
         <div class="alert alert-success" role="alert">

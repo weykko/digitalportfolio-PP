@@ -16,7 +16,45 @@
     <script src="{% static 'js/scripts.js' %}"></script>
 </head>
 <body>
-    {% include 'blocks/header.html' %}
+    {% load static wagtailcore_tags %}
+<link href="{% static 'css/header.css' %}" rel="stylesheet">
+<header class="page-header">
+      <div class="header-container1">
+          {% if user.is_anonymous %}
+              <div class="rectangle1">
+              <a href='login' class="log-in">Войти</a>
+              </div>
+              <div class="rectangle2">
+                   <a href='signup' class="registration">Зарегистрироваться</a>
+              </div>
+          {% else %}
+              <div>
+                  <a href="{% url 'home_view' %}">
+                    <img src="{% static 'img/Header-logo.svg' %}" width="80" height="80" >
+                  </a>
+              </div>
+              <div class="rectangle1">
+              <a href='profile/{{ request.user.pk }}' class="profile">Профиль</a>
+              </div>
+              <div class="rectangle2">
+              <a href='logout' class="log-out">Выйти</a>
+              </div>
+          {% endif %}
+      </div>
+
+      <div class="header-container2">
+        <div class="circle1">
+          <a href="https://vk.com/sweetcreations" target="_blank">
+            <img src="{% static 'img/vk_icon.png' %}" width="50" height="50" >
+          </a>
+        </div>
+        <div class="circle2">
+          <a href="https://t.me/sweetcreations1" target="_blank">
+            <img src="{% static 'img/tg-icon.png' %}" width="50" height="50">
+          </a>
+        </div>
+      </div>
+</header>
     <main class="container">
         <div class="row">
             <div class="col-3">

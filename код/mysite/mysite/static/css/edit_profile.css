@@ -11,6 +11,8 @@ main{
     background-color: #FFB2FC;
     background-blend-mode: luminosity, normal;
     background-image: url("../img/keks1.png");
+    padding-top: 40px;
+    padding-bottom: 40px;
 }
 
 .content {
@@ -21,7 +23,7 @@ main{
 }
 
 h2 {
-    font-weight: 200;
+    font-weight: 400;
     font-size: 32px;
     color: #000000;
     margin-bottom: 20px;
@@ -75,8 +77,9 @@ h2 {
     color: white;
     border: none;
     cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
 }
 
 .bootstrap-form input[type="submit"]:hover {
-    background-color: #5b1e90;
+    background-color: rgba(145, 59, 212, 1);
 }

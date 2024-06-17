@@ -16,8 +16,10 @@
 
 <header class="page-header">
       <div class="header-container1">
-              <div class="rectangle1">
-              <a href="{% url 'home_view' %}" class="log-in">На главную</a>
+              <div>
+                  <a href="{% url 'home_view' %}">
+                    <img src="{% static 'img/Header-logo.svg' %}" width="80" height="80" >
+                  </a>
               </div>
               <div class="rectangle2">
               <a href="{% url 'logout' %}" class="log-out">Выйти</a>

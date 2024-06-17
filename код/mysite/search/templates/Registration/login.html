@@ -16,10 +16,15 @@
 <header class="page-header">
       <div class="header-container1">
           {% if user.is_anonymous %}
-              <div class="rectangle1">
+              <div>
+                  <a href="{% url 'home_view' %}">
+                    <img src="{% static 'img/Header-logo.svg' %}" width="80" height="80" >
+                  </a>
+              </div>
+              <!-- <div class="rectangle1">
               <a href="{% url 'home_view' %}" class="log-in">На главную</a>
               </div>
-              <div class="rectangle2">
+              <div class="rectangle2"> -->
                    <a href="{% url 'signup' %}" class="registration">Зарегистрироваться</a>
               </div>
           {% else %}
@@ -45,7 +50,9 @@
         </div>
       </div>
 </header>
+
 <main class="login-main">
+    {% include 'blocks/messages.html' %}
     <div class="container content" style="text-align: center;">
         <div class = "login-content">
                 <h2>Войти на сайт</h2>
@@ -61,6 +68,7 @@
                             <input class="input_password" type="password" id="password" name="password">
                         </div>
                     <input class="login_input" type="submit" class="btn btn-primary" value="Войти">
+
                     <div class="keks">
                         <img src="{% static 'img/keks2.png' %}" width="263" height="52">
                     </div>

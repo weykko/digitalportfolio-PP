@@ -5,15 +5,17 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Viaoda+Libre&display=swap" rel="stylesheet">
+    <link href="{% static 'css/header.css' %}" rel="stylesheet">
     <link href="{% static 'css/edit_profile.css' %}" rel="stylesheet">
     <title>Вход</title>
 </head>
 <body>
-    <link href="{% static 'css/header.css' %}" rel="stylesheet">
     <header class="page-header">
           <div class="header-container1">
-                  <div class="rectangle1">
-                  <a href="{% url 'home_view' %}" class="log-in">На главную</a>
+                  <div>
+                  <a href="{% url 'home_view' %}">
+                    <img src="{% static 'img/Header-logo.svg' %}" width="80" height="80" >
+                  </a>
                   </div>
                   <div class="rectangle2">
                        <a href="{% url 'logout' %}" class="registration">Выйти</a>

@@ -1,3 +1,4 @@
+
 body {
     font-family: Montserrat, sans-serif;
     margin: 0;
@@ -19,7 +20,7 @@ body {
 main {
     padding-top: 25px;
     margin: 0;
-
+    padding-left: 50%;
 }
 
 img.mainpage-avatar-img {
@@ -71,12 +72,16 @@ img.mainpage-avatar-img {
     justify-content: space-between;
 }
 
+.like-count{
+    color: black;
+    margin-left: 3px;
+}
 
 .like-btn {
-    background-color: #FF4040;
+    background-color: white;
     color: white;
     border: none;
-    padding: 5px 15px;
+
     border-radius: 5px;
     cursor: pointer;
     font-size: 14px;
@@ -93,6 +98,11 @@ img.mainpage-avatar-img {
     border-color: #7D27C0;
     color: #7D27C0;
 }
+.send-button:hover {
+    border-color: #7D27C0;
+    color: white;
+    background-color: #7D27C0;
+}
 
 a {
     text-decoration: none;
@@ -101,4 +111,30 @@ a {
 
 .left-menu a {
     color: black;
+    background-color: black;
 }
+.left-menu {
+    background-color:rgba(255, 255, 255, 0);
+    border: 0px rgba(255, 255, 255, 0);
+     box-shadow: 0  8px rgba(0, 0, 0, 0);
+}
+
+.right-menu-links .mainpage-avatar-img:nth-of-type(1) {
+    display: inline-block;
+    margin-top: -8px;
+    border-color: #7D27C0;
+    color: #7D27C0;
+    font-size:14px;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+    white-space: nowrap;
+    width: auto;
+}
+
+.right-menu-links .mainpage-avatar-img:nth-of-type(1):hover {
+    border-color: #7D27C0;
+    color: white;
+    background-color: #7D27C0;
+}
+
