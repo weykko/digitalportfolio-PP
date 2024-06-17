@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', function() {
         btn.addEventListener('click', function() {
             const postId = this.getAttribute('data-id');
             let likeCountElement = this.querySelector('.like-count');
-
+            this.classList.add('pressed');
             fetch(`/post/${postId}/like/`, {
                 method: 'POST',
                 headers: {

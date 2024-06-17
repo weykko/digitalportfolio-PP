@@ -7,67 +7,90 @@
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Viaoda+Libre&display=swap" rel="stylesheet">
         <title>Наша команда</title>
-        <link href="{% static 'css/aboutus.css' %}" rel="stylesheet">
         <link href="{% static 'css/header.css' %}" rel="stylesheet">
+        <link href="{% static 'css/aboutus.css' %}" rel="stylesheet">
         <link href="{% static 'css/footer.css' %}" rel="stylesheet">
     </head>
     <body>
-        <header class="page-header">
-            <div class="header-container1">
-                <div>
+<header class="page-header">
+      <div class="header-container1">
+          {% if user.is_anonymous %}
+              <div class="rectangle1">
+              <a href='login' class="log-in">Войти</a>
+              </div>
+              <div class="rectangle2">
+                   <a href='signup' class="registration">Зарегистрироваться</a>
+              </div>
+          {% else %}
+              <div>
                   <a href="{% url 'home_view' %}">
-                    <img src="{% static 'img/Header-logo.svg' %}" width="80" height="80" >
+                    <img src="{% static 'img/Header-logo.svg' %}" width="60" >
                   </a>
               </div>
-                <div class="rectangle2">
-                    <a href="{% url 'logout' %}" class="log-out">Выйти</a>
-                </div>
-            </div>
-            <div class="header-container2">
-                <div class="circle1">
-                    <a href="https://vk.com/sweetcreations" target="_blank">
-                        <img src="{% static 'img/vk_icon.png' %}" width="50" height="50">
-                    </a>
-                </div>
-                <div class="circle2">
-                    <a href="https://t.me/sweetcreations1" target="_blank">
-                        <img src="{% static 'img/tg-icon.png' %}" width="50" height="50">
-                    </a>
-                </div>
-            </div>
-        </header>
+              <div class="rectangle1">
+              <a href='profile/{{ request.user.pk }}' class="profile">Профиль</a>
+              </div>
+              <div class="rectangle2">
+              <a href='logout' class="log-out">Выйти</a>
+              </div>
+          {% endif %}
+      </div>
+
+      <div class="header-container2">
+        <div class="circle1">
+          <a href="https://vk.com/sweetcreations" target="_blank">
+            <img src="{% static 'img/vk_icon.png' %}" width="50" height="50" >
+          </a>
+        </div>
+        <div class="circle2">
+          <a href="https://t.me/sweetcreations1" target="_blank">
+            <img src="{% static 'img/tg-icon.png' %}" width="50" height="50">
+          </a>
+        </div>
+      </div>
+</header>
         <main>
             <h1>Наша команда</h1>
-            <div class="gallery">
-                <div class="image-container">
-                    <img src="{% static 'img/Aleksandr.jpg' %}">
-                    <p>Александр Безунтров</p>
-                    <span>Тим-лидер</span>
+            <div class="about-container">
+                <div class="gallery">
+                    <div class="image-container">
+                        <img src="{% static 'img/Aleksandr.jpg' %}" width="500" height="50">
+                        <p>Александр Безунтров</p>
+                        <span>Тим-лидер</span>
+                    </div>
+                    <div class="image-container">
+                        <img src="{% static 'img/Nickolay.jpg' %}">
+                        <p>Николай Нагиев</p>
+                        <span>Аналитик</span>
+                    </div>
+                    <div class="image-container">
+                        <img src="{% static 'img/Svyatoslav.jpg' %}">
+                        <p>Святослав Лебедкин</p>
+                        <span>Дизайнер</span>
+                    </div>
+                    <div class="image-container">
+                        <img src="{% static 'img/Anna.jpg' %}">
+                        <p>Анна Андрус</p>
+                        <span>Frontend-разработчик</span>
+                    </div>
+                    <div class="image-container">
+                        <img src="{% static 'img/Ivan.jpg' %}">
+                        <p>Иван Куликов</p>
+                        <span>Frontend-разработчик</span>
+                    </div>
+                    <div class="image-container">
+                        <img src="{% static 'img/Eugeniy.jpg' %}">
+                        <p>Евгений Егоров</p>
+                        <span>Backend-разработчик</span>
+                    </div>
                 </div>
-                <div class="image-container">
-                    <img src="{% static 'img/Nickolay.jpg' %}">
-                    <p>Николай Нагиев</п>
-                    <span>Аналитик</span>
-                </div>
-                <div class="image-container">
-                    <img src="{% static 'img/Svyatoslav.jpg' %}">
-                    <p>Святослав Лебедкин</п>
-                    <span>Дизайнер</span>
-                </div>
-                <div class="image-container">
-                    <img src="{% static 'img/Anna.jpg' %}">
-                    <p>Анна Андрус</п>
-                    <span>Front-end разработчик</span>
-                </div>
-                <div class="image-container">
-                    <img src="{% static 'img/Ivan.jpg' %}">
-                    <p>Иван Куликов</п>
-                    <span>Front-end разработчик</span>
-                </div>
-                <div class="image-container">
-                    <img src="{% static 'img/Eugeniy.jpg' %}">
-                    <p>Евгений Егоров</п>
-                    <span>Back-end разработчик</span>
+                <div class="about-text">
+                    <p >Мы — команда "CyberBeasts", студенты первого курса Уральского федерального университета.</p>
+                        <p >Наша страсть к программированию и дизайну вдохновила нас на создание красивых и функциональных веб-сайтов.</p>
+                        <p >Сайт "SweetCreations" был разработан специально для кондитеров.</p>
+                       <p > Наша страсть к веб-разработке сочетается с любовью к сладкому
+                        и желанием помочь вашему кондитерскому бизнесу процветать в онлайн-мире.</p>
+                        <p>С нами ваш кондитерский бизнес будет не только вкусным, но и успешным!</p>
                 </div>
             </div>
         </main>

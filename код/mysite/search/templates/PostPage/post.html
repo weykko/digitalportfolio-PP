@@ -10,14 +10,15 @@
         <link href="{% static 'css/bootstrap.css' %}" rel="stylesheet">
         <link href="{% static 'css/timeline.css' %}" rel="stylesheet">
         <link href="{% static 'css/footer.css' %}" rel="stylesheet">
+        <link href="{% static 'css/post.css' %}" rel="stylesheet">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <script src="{% static 'js/main.js' %}"></script>
         <script src="{% static 'js/scripts.js' %}"></script>
     </head>
     <body>
         {% for post in posts %}
-            <div class="card">
-                <div class="card-body post">
+            <div class="card" style="border-radius: 15px; border: 0;">
+                <div class="card-body post" style="border-radius: 15px; border: 0;">
                     <div class="post-title">
                         {% if post.author.profile.profile_pic %}
                             <img src="{{ post.author.profile.profile_pic.url }}" class="post-author-img img-thumbnail">
@@ -45,7 +46,7 @@
                         {% if user.is_authenticated %}
                             <div class="like-section">
                                 <button class="like-btn" data-id="{{ post.id }}">
-                                    Лайк (<span class="like-count">{{ post.total_likes }}</span>)
+                                    <img class="heart.added" src="{% static 'img/heart.svg' %}" width="25" height="25"> <span class="like-count">{{ post.total_likes }}</span>
                                 </button>
                             </div>
                         {% endif %}
@@ -67,14 +68,14 @@
                             <button class="form-control btn btn-outline-success btn-sm send-button" type="submit">Добавить комментарий</button>
                         </form>
                     {% else %}
-                        <p>Зарегистрируйтесь или войдите в аккаунт, чтоб оставлять комментарии и ставить лайки</p>
+                        <p class="not-authed-p">Зарегистрируйтесь или войдите в аккаунт, чтоб оставлять комментарии и ставить лайки</p>
                     {% endif %}
 
                 <!-- Комментарии -->
+                {% if post.comments.exists %}
                 <div class="comments">
-                    {% if post.comments.exists %}
+
                         <h5>Комментарии:</h5>
-                    {% endif %}
 
                     {% for comment in post.comments.all %}
                         <div class="comment">
@@ -84,15 +85,20 @@
                                 {% else %}
                                     <img src="{% static 'base/images/profile/user.png' %}" class="post-author-img img-thumbnail">
                                 {% endif %}
-                                <a href="{% url 'profile' comment.author.id %}">{{ comment.author.get_full_name }}</a>
+                                <div class ="comment-author-name">
+                                    <a href="{% url 'profile' comment.author.id %}">{{ comment.author.get_full_name }}</a>
+                                </div>
                             </div>
-                            <div class="comment-text"> : {{ comment.text }} </div>
-                            {% if comment.author == user %}
-                                <a href="{% url 'delete_comment' comment_id=comment.id %}">Удалить</a>
-                            {% endif %}
+                            <div class="comment-text"> {{ comment.text }} </div>
+                            <div class="delete-comment">
+                                {% if comment.author == user %}
+                                    <a href="{% url 'delete_comment' comment_id=comment.id %}">Удалить</a>
+                                {% endif %}
+                            </div>
                         </div>
                     {% endfor %}
                 </div>
+                {% endif %}
             </div>
         </div>
         {% endfor %}
@@ -100,50 +106,6 @@
 </html>
 
 <!-- стиль для коментов -->
-<style>
-        .comments {
-        margin-top: 20px;
-    }
-
-    .comments h5 {
-        margin-bottom: 15px;
-    }
-
-    .comment {
-        display: flex;
-        align-items: center;
-        padding: 10px;
-        border-bottom: 1px solid #ccc;
-    }
-
-    .comment-author {
-        display: flex;
-        align-items: center;
-        margin-right: 10px;
-    }
-
-    .comment-author img.post-author-img {
-        width: 40px;
-        height: 40px;
-        border-radius: 50%;
-        margin-right: 10px;
-    }
-
-    .comment-text {
-        flex-grow: 1;
-    }
-
-    .comment a {
-        color: #000000;
-        text-decoration: none;
-    }
-
-    .comment a:hover {
-        text-decoration: none;
-        color:  #8b00cf;
-    }
-</style>
-
 <script>
 
 </script>

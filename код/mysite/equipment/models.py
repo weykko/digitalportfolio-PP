@@ -8,11 +8,10 @@ class Profile(models.Model):
     firstname = models.CharField(verbose_name="Имя", max_length=30, null=False)
     lastname = models.CharField(verbose_name="Фамилия", max_length=30, null=False)
     city = models.CharField(verbose_name="Город", max_length=30, null=True)
-    bio = models.TextField(verbose_name="Расскажите о себе", null=True, blank=True)
-    achievements = models.TextField(verbose_name="Достижения", null=True, blank=True)
     VK = models.CharField(verbose_name="Ваш Вконтакте", max_length=50, null=True, blank=True)
     Telegram = models.CharField(verbose_name="Ваш Телеграм", max_length=50, null=True, blank=True)
-    WhatsApp = models.CharField(verbose_name="Ваш WhatsApp", max_length=50, null=True, blank=True)
+    WhatsApp = models.CharField(verbose_name="Ваш телефон", max_length=50, null=True, blank=True)
+    bio = models.TextField(verbose_name="Расскажите о себе", null=True, blank=True)
     subscriptions = models.ManyToManyField('self', symmetrical=False, related_name='subscribers', blank=True)
 
     def __str__(self):

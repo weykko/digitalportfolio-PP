@@ -3,24 +3,15 @@ body {
     font-family: Montserrat, sans-serif;
     margin: 0;
     padding: 0;
-    color: white;
     background-color: rgba(255, 178, 252, 1);
     background-blend-mode: luminosity, normal;
     background-color: #FFB2FC;
     background-image: url("../img/keks1.png");
 }
 
-.post-photo{
-    border: 0;
-    margin: 0;
-    padding: 0;
-    margin-bottom: 10px;
-}
-
 main {
     padding-top: 25px;
     margin: 0;
-    padding-left: 50%;
 }
 
 img.mainpage-avatar-img {
@@ -32,20 +23,6 @@ img.mainpage-avatar-img {
     border-radius: 50%;
 }
 
-.comment-form img{
-    border-radius: 50%;
-    border: 0;
-    width: 40px;
-    height: 40px;
-}
-
-.post-title img{
-    border-radius: 50%;
-    border: 0;
-    width: 40px;
-    height: 40px;
-}
-
 .right-menu-links {
     margin: 25px 0px 20px;
 }
@@ -54,55 +31,7 @@ img.mainpage-avatar-img {
     background-color: white;
 }
 
-.delete-post {
-    background-color: #7D27C0;
-    color: white;
-    border: none;
-    padding: 5px 15px;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 14px;
-    transition: background-color 0.3s ease;
-    margin: 0;
-    opacity: 0.75;
-}
 
-.buttons{
-    display: flex;
-    justify-content: space-between;
-}
-
-.like-count{
-    color: black;
-    margin-left: 3px;
-}
-
-.like-btn {
-    background-color: white;
-    color: white;
-    border: none;
-
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 14px;
-    transition: background-color 0.3s ease;
-    margin: 0;
-    opacity: 0.75;
-}
-
-.delete-post:hover {
-    opacity: 0.7;
-}
-
-.send-button {
-    border-color: #7D27C0;
-    color: #7D27C0;
-}
-.send-button:hover {
-    border-color: #7D27C0;
-    color: white;
-    background-color: #7D27C0;
-}
 
 a {
     text-decoration: none;
@@ -137,4 +66,5 @@ a {
     color: white;
     background-color: #7D27C0;
 }
+
 

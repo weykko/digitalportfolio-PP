@@ -1,6 +1,6 @@
 {% load static wagtailcore_tags %}
 {% block content %}
-{% include 'blocks/messages.html' %}
+<!--{% include 'blocks/messages.html' %} -->
 <html lang="ru">
 <head>
     <meta charset="utf-8">
@@ -10,7 +10,6 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <link href="{% static 'css/header.css' %}" rel="stylesheet">
     <link href="{% static 'css/style_profile.css' %}" rel="stylesheet">
-    <link href="{% static 'css/bootstrap.css' %}" rel="stylesheet">
     <title>Профиль</title>
 </head>
 
@@ -18,7 +17,7 @@
       <div class="header-container1">
               <div>
                   <a href="{% url 'home_view' %}">
-                    <img src="{% static 'img/Header-logo.svg' %}" width="80" height="80" >
+                    <img src="{% static 'img/Header-logo.svg' %}" width="60">
                   </a>
               </div>
               <div class="rectangle2">
@@ -41,12 +40,12 @@
 </header>
   <body>
     <main class="profile-main">
-        <div class="container">
+        <div class="profile-container">
             <div class="avatar-edit">
                 {% if not profile.profile_pic %}
-                        <img src="{% static 'base/images/profile/user.png' %}" class="mainpage-avatar-img">
+                        <img src="{% static 'base/images/profile/user.png' %}" class="profile-mainpage-avatar-img">
                 {% else %}
-                        <img src="{{ profile.profile_pic.url }}" class="mainpage-avatar-img">
+                        <img src="{{ profile.profile_pic.url }}" class="profile-mainpage-avatar-img">
                 {% endif %}
 
                     {% if request.user.is_authenticated and request.user != profile.user %} {% if request.user.profile in profile.followers.all %}
@@ -92,60 +91,20 @@
 
                     <div class="about-container info-box">
                         {% if profile.bio %}
-                        <p class="about-title">Расскажите о себе: {{ profile.bio }}</p>
-                        {% endif %}
-
-                        {% if profile.achievements %}
-                            <p class="about">Достижения: {{ profile.achievements }}</p>
+                        <p class="about-title">Расскажите о себе: </p>
+                        <p class="about-container">{{ profile.bio }}</p>
                         {% endif %}
                     </div>
                 </div>
             </div>
         </div>
-
-        <div class="card border-0">
-            <div class="card-body">
-                <div class="row">
-                    <div class="col-md-6">
-                        <h6 class="card-title">
-                            Подписки
-                        </h6>
-                        <div class="card-text">
-                            <div class="row">
-                                {% for following in profile.following.all %}
-                                <div class="col-md-2">
-                                    <a href="{{ following.get_absolute_url }}">
-                                        <img src="{{ following.get_avatar }}" class="img-fluid rounded-1" alt="{{ following }}" />
-                                    </a>
-                                </div>
-                                {% endfor %}
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <h6 class="card-title">
-                            Подписчики
-                        </h6>
-                        <div class="card-text">
-                            <div class="row followers-box">
-                                {% for follower in profile.followers.all %}
-                                <div class="col-md-2" id="user-slug-{{ follower.slug }}">
-                                    <a href="{{ follower.get_absolute_url }}">
-                                        <img src="{{ follower.get_avatar }}" class="img-fluid rounded-1" alt="{{ follower }}" />
-                                    </a>
-                                </div>
-                                {% endfor %}
-                            </div>
-                        </div>
-                    </div>
-                </div>
+        <div class="posts">
+            <div class="create-post">
+                {% if profile.id == request.user.profile.id %}
+                    {% include 'PostPage/createpost.html' %}
+                {% endif %}
             </div>
-        </div>
 
-        {% if profile.id == request.user.profile.id %}
-            {% include 'PostPage/createpost.html' %}
-        {% endif %}
-         <div class="col-6 content">
             <div class="timeline">
                 {% include 'PostPage/post.html' %}
             </div>
@@ -160,53 +119,3 @@
 <script src="{% static '/js/profile.js' %}"></script>
 {% endblock %}
 
-<style>
-    .post-container {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px; /* Расстояние между постами */
-    margin: 20px 0;
-    padding: 20px;
-    background-color: #f9f9f9;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-.post {
-    flex: 1 1 calc(33.333% - 40px); /* Три поста в ряд */
-    background-color: #ffffff;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    overflow: hidden;
-    transition: transform 0.3s ease;
-    padding: 20px;
-}
-
-.post:hover {
-    transform: translateY(-5px);
-}
-
-.post img {
-    width: 100%;
-    height: auto;
-    border-radius: 10px 10px 0 0;
-}
-
-.post-content {
-    padding: 15px;
-}
-
-.post-title {
-    font-size: 1.5em;
-    margin: 0 0 10px;
-    color: #333;
-}
-
-.post-text {
-    font-size: 1em;
-    color: #666;
-    line-height: 1.6;
-}
-
-
-</style>

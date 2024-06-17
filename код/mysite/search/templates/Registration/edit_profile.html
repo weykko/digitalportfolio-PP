@@ -13,9 +13,9 @@
     <header class="page-header">
           <div class="header-container1">
                   <div>
-                  <a href="{% url 'home_view' %}">
-                    <img src="{% static 'img/Header-logo.svg' %}" width="80" height="80" >
-                  </a>
+                      <a href="{% url 'home_view' %}">
+                        <img src="{% static 'img/Header-logo.svg' %}" width="80" height="80" >
+                      </a>
                   </div>
                   <div class="rectangle2">
                        <a href="{% url 'logout' %}" class="registration">Выйти</a>
@@ -36,7 +36,7 @@
           </div>
     </header>
     <main>
-        <div class="container content" style="text-align: center;">
+        <div class="container content" style="text-align: center; width: 500px;">
             <div style="display: inline-block; width: 400px;">
                 <h2>Редактировать профиль</h2>
                 <form method="post" class="bootstrap-form" enctype="multipart/form-data">

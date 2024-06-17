@@ -8,16 +8,16 @@ body {
     background-image: url("../img/keks1.png");
     margin: 0 auto;
 }
-.container {
+.profile-container {
     margin: 0;
     display: flex;
     justify-content: center;
     gap: 20px;
-    padding-top: 20px;
-    padding-bottom: 380px;
+    padding-top: 0px;
+    margin-bottom: 20px;
 }
 
-.mainpage-avatar-img {
+.profile-mainpage-avatar-img {
     border-radius: 50%;
     width: 200px;
     height: 200px;
@@ -65,6 +65,7 @@ body {
     margin-bottom: 10px;
     display: block;
     padding: 10px;
+    font-size: 30px;
 }
 
 .about {
@@ -87,4 +88,19 @@ body {
 .about-container {
     margin-bottom: 0px;
     word-wrap: break-word;
+}
+
+.content{
+    margin: 0 auto;
+}
+
+.create-post{
+    width: 1020px;
+    margin: 0 auto;
+    border-radius: 15px;
+}
+
+.timeline{
+    width: 636px;
+    margin: 0 auto;
 }
