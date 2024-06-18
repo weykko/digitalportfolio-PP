@@ -12,46 +12,55 @@
     <link href="{% static 'css/bootstrap.css' %}" rel="stylesheet">
     <link href="{% static 'css/timeline.css' %}" rel="stylesheet">
     <link href="{% static 'css/footer.css' %}" rel="stylesheet">
-
+    <link href="{% static 'css/header.css' %}" rel="stylesheet">
     <script src="{% static 'js/main.js' %}"></script>
     <script src="{% static 'js/scripts.js' %}"></script>
 </head>
 <body>
-    {% load static wagtailcore_tags %}
-<link href="{% static 'css/header.css' %}" rel="stylesheet">
 <header class="page-header">
       <div class="header-container1">
-          {% if user.is_anonymous %}
-              <div class="rectangle1">
-              <a href='login' class="log-in">Войти</a>
-              </div>
-              <div class="rectangle2">
-                   <a href='signup' class="registration">Зарегистрироваться</a>
-              </div>
-          {% else %}
-              <div>
+          <div class="header-logo">
                   <a href="{% url 'home_view' %}">
                     <img src="{% static 'img/Header-logo.svg' %}" width="60" >
                   </a>
+          </div>
+          {% if user.is_anonymous %}
+              <div class="header-button">
+              <a href='login' class="log-in">Войти</a>
               </div>
-              <div class="rectangle1">
-              <a href='profile/{{ request.user.pk }}' class="profile">Профиль</a>
+              <div class="header-button">
+                   <a href='signup' class="registration">Зарегистрироваться</a>
               </div>
-              <div class="rectangle2">
+              <div class="header-button">
+              <a href="{% url 'post_view' %}" class="active">Лента</a>
+              </div>
+          {% else %}
+              <div class="header-button">
+              <a href="{% url 'profile' pk=user.pk %}">Профиль</a>
+              </div>
+              <div class="header-button">
+              <a href="{% url 'post_view' %}" class="active">Лента</a>
+              </div>
+              <div class="header-button">
               <a href='logout' class="log-out">Выйти</a>
               </div>
           {% endif %}
       </div>
-
+      <form class="search-form" method="GET" action="{% url 'search_profiles' %}">
+          <input class="search-input" type="text" name="q" placeholder="Найти пользователя по имени" value="{{ request.GET.q }}">
+          <button class="search-button" type="submit">
+                <img src="{% static 'img/search-icon.png' %}" width="30" height="30">
+          </button>
+      </form>
       <div class="header-container2">
         <div class="circle1">
           <a href="https://vk.com/sweetcreations" target="_blank">
-            <img src="{% static 'img/vk_icon.png' %}" width="50" height="50" >
+            <img src="{% static 'img/vk_icon.svg' %}" width="50" height="50" >
           </a>
         </div>
         <div class="circle2">
           <a href="https://t.me/sweetcreations1" target="_blank">
-            <img src="{% static 'img/tg-icon.png' %}" width="50" height="50">
+            <img src="{% static 'img/tg-icon.svg' %}" width="50" height="50">
           </a>
         </div>
       </div>
@@ -59,14 +68,7 @@
     <main class="container">
         <div class="row">
             <div class="col-3">
-                <div class="block left-menu block-color">
-                    <a href="{% url 'home_view' %}">На главную</a>
-                    {% if user.is_authenticated %}
-                        <a href='profile/{{ request.user.pk }}'>Мой профиль</a>
-                        <!--<a href="{% url 'home_view' %}">Мои подписчики</a>-->
-                    {% endif %}
-                </div>
-                {% if user.is_authenticated %}
+
                     <div class="filters-container">
                         <!-- Форма сортировки -->
                         <form method="get" action="" class="sort-form">
@@ -83,19 +85,18 @@
 
                         <!-- Форма фильтрации -->
                         <form class="filter-form" method="get" action="">
-                            <label for="has_photo">Наличие фото:</label>
-                            <select name="has_photo" id="has_photo" class="custom-select">
-                                <option value="">--Похрен--</option>
-                                <option value="1" {% if request.GET.has_photo == '1' %}selected{% endif %}>С фото</option>
-                                <option value="0" {% if request.GET.has_photo == '0' %}selected{% endif %}>Без фото</option>
-                            </select>
+<!--                            <label for="has_photo">Наличие фото:</label>-->
+<!--                            <select name="has_photo" id="has_photo" class="custom-select">-->
+<!--                                <option value="">Неважно</option>-->
+<!--                                <option value="1" {% if request.GET.has_photo == '1' %}selected{% endif %}>С фото</option>-->
+<!--                                <option value="0" {% if request.GET.has_photo == '0' %}selected{% endif %}>Без фото</option>-->
+<!--                            </select>-->
 
                             <!-- Форма фильтрации по городам -->
                             {{ city_filter_form.as_p }}
                             <button type="submit" class="filter-button">Применить фильтры</button>
                         </form>
                     </div>
-                {% endif %}
             </div>
 
 
@@ -106,12 +107,12 @@
         </div>
             {% if user.is_authenticated %}
                 <div class="col-3">
-                    <div class="block right-menu block-color" style="text-align: center;">
-                        <b>{{ user.get_full_name }}</b>
+                    <div class="block right-menu block-color" style="text-align: center; border-radius: 15px; border: 0;">
+                        <p class="profile-name">{{ user.get_full_name }}</p>
                         {% if request.user.profile.profile_pic %}
                             <img src="{{ request.user.profile.profile_pic.url }}" alt="Аватарка пользователя" class="mainpage-avatar-img img-thumbnail">
                         {% else %}
-                            <p>Аватарка пользователя отсутствует</p>
+                            <img src="{% static 'img/user.png' %}" class="mainpage-avatar-img img-thumbnail">
                         {% endif %}
                         <div class="right-menu-links">
                             <a href='profile/{{ request.user.pk }}' class="mainpage-avatar-img img-thumbnail">
@@ -126,42 +127,12 @@
     {% include 'blocks/footer.html' %}
 </body>
 {% endblock %}
-
 <style>
-.filters-container {
-    margin-bottom: 20px;
+    .search-input[type="text"] {
+
+    height: 41px;
+    margin: 0;
+    margin-right: 10px;
 }
 
-
-.sort-form, .filter-form {
-    margin: 10px 0;
-}
-
-
-.filter-button {
-    margin-top: 10px;
-    padding: 5px 10px;
-    border: none;
-    border-radius: 5px;
-    background-color: #4CAF50;
-    color: white;
-    cursor: pointer;
-}
-
-.filter-button:hover {
-    background-color: #45a049;
-}
-
-.custom-select {
-    padding: 10px;
-    border-radius: 5px;
-    border: 1px solid #ccc;
-    font-size: 16px;
-    width: 100%;
-    max-width: 300px;
-}
-
-#city-select {
-    color: #333;
-}
 </style>

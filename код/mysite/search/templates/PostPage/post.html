@@ -23,7 +23,7 @@
                         {% if post.author.profile.profile_pic %}
                             <img src="{{ post.author.profile.profile_pic.url }}" class="post-author-img img-thumbnail">
                         {% else %}
-                            <img src="{% static 'base/images/profile/user.png' %}" class="post-author-img img-thumbnail">
+                            <img src="{% static 'img/user.png' %}" class="post-author-img img-thumbnail">
                         {% endif %}
                         <div class="post-author">
                             <a href="{% url 'profile' post.author.id %}">{{ post.author.get_full_name }}</a>
@@ -83,7 +83,7 @@
                                 {% if comment.author.profile.profile_pic %}
                                     <img src="{{ comment.author.profile.profile_pic.url }}" class="post-author-img img-thumbnail">
                                 {% else %}
-                                    <img src="{% static 'base/images/profile/user.png' %}" class="post-author-img img-thumbnail">
+                                    <img src="{% static 'img/user.png' %}" class="post-author-img img-thumbnail">
                                 {% endif %}
                                 <div class ="comment-author-name">
                                     <a href="{% url 'profile' comment.author.id %}">{{ comment.author.get_full_name }}</a>

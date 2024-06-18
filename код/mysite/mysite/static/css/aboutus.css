@@ -1,6 +1,9 @@
 body {
     margin: 0;
     font-family: Montserrat;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
 }
 
 main {
@@ -13,11 +16,12 @@ main {
     background-blend-mode: luminosity, normal;
     background-image: url("../img/keks1.png");
     align-items: center;
+    flex: 1;
 }
 
 h1 {
     text-align: center;
-    margin-top: 50px;
+    margin-top: 0px;
     margin-bottom: 40px;
     font-size: 40px;
     font-weight: 600;
@@ -34,7 +38,7 @@ h1 {
     background-color: white;
     padding: 40px;
     margin: 0;
-    margin-bottom: 50px;
+    margin-bottom: 0px;
     margin-right: 40px;
     border-radius: 15px;
 

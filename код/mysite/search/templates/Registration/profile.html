@@ -12,50 +12,78 @@
     <link href="{% static 'css/style_profile.css' %}" rel="stylesheet">
     <title>Профиль</title>
 </head>
-
-<header class="page-header">
+  <body>
+    <header class="page-header">
       <div class="header-container1">
-              <div>
+              <div class="header-logo">
                   <a href="{% url 'home_view' %}">
                     <img src="{% static 'img/Header-logo.svg' %}" width="60">
                   </a>
               </div>
-              <div class="rectangle2">
+            {% if user.is_anonymous %}
+              <div class="header-button">
+              <a href='login' class="log-in">Войти</a>
+              </div>
+              <div class="header-button">
+                   <a href='signup' class="registration">Зарегистрироваться</a>
+              </div>
+              <div class="header-button">
+              <a href="{% url 'post_view' %}" class="log-out">Лента</a>
+              </div>
+          {% else %}
+              {% if request.user == profile.user %}
+              <div class="header-button">
+              <a href="{% url 'profile' pk=user.pk %}" class="active">Профиль</a>
+              </div>
+              {% else %}
+              <div class="header-button">
+              <a href="{% url 'profile' pk=user.pk %}" class="log-out">Профиль</a>
+              </div>
+              {% endif %}
+              <div class="header-button">
+              <a href="{% url 'post_view' %}" class="log-out">Лента</a>
+              </div>
+              <div class="header-button">
               <a href="{% url 'logout' %}" class="log-out">Выйти</a>
               </div>
+          {% endif %}
       </div>
-
+      <form class="search-form" method="GET" action="{% url 'search_profiles' %}">
+          <input class="search-input" type="text" name="q" placeholder="Найти пользователя по имени" value="{{ request.GET.q }}">
+          <button class="search-button" type="submit">
+                <img src="{% static 'img/search-icon.png' %}" width="30" height="30">
+          </button>
+      </form>
       <div class="header-container2">
         <div class="circle1">
           <a href="https://vk.com/sweetcreations" target="_blank">
-          <img src="{% static 'img/vk_icon.png' %}" width="50" height="50" >
+          <img src="{% static 'img/vk_icon.svg' %}" width="50" height="50" >
           </a>
         </div>
         <div class="circle2">
           <a href="https://t.me/sweetcreations1" target="_blank">
-          <img src="{% static 'img/tg-icon.png' %}" width="50" height="50" >
+          <img src="{% static 'img/tg-icon.svg' %}" width="50" height="50" >
           </a>
         </div>
       </div>
-</header>
-  <body>
+    </header>
     <main class="profile-main">
         <div class="profile-container">
             <div class="avatar-edit">
                 {% if not profile.profile_pic %}
-                        <img src="{% static 'base/images/profile/user.png' %}" class="profile-mainpage-avatar-img">
+                        <img src="{% static 'img/user.png' %}" class="profile-mainpage-avatar-img">
                 {% else %}
                         <img src="{{ profile.profile_pic.url }}" class="profile-mainpage-avatar-img">
                 {% endif %}
 
                     {% if request.user.is_authenticated and request.user != profile.user %} {% if request.user.profile in profile.followers.all %}
-					    <button class="btn btn-sm btn-danger btn-follow" data-pk="{{ profile.pk }}">
-						    Отписаться
-					    </button>
+<!--					    <button class="btn btn-sm btn-danger btn-follow" data-pk="{{ profile.pk }}">-->
+<!--						    Отписаться-->
+<!--					    </button>-->
 					{% else %}
-					    <button class="btn btn-sm btn-primary btn-follow" data-pk="{{ profile.pk}}">
-						    Подписаться на обновления
-					    </button>
+<!--					    <button class="btn btn-sm btn-primary btn-follow" data-pk="{{ profile.pk}}">-->
+<!--						    Подписаться на обновления-->
+<!--					    </button>-->
 					{% endif %} {% elif request.user == profile.user %}
 					    <div class="edit-profile-button">
                             <a href="{% url 'edit_profile' profile.id %}" class="edit_profile">Редактировать</a>
@@ -90,9 +118,12 @@
                     <p class="mail info-box">Почта: {{ profile.user.email }}</p>
 
                     <div class="about-container info-box">
+
+                            <p class="about-title">О себе: </p>
                         {% if profile.bio %}
-                        <p class="about-title">Расскажите о себе: </p>
-                        <p class="about-container">{{ profile.bio }}</p>
+                            <p class="about-container">{{ profile.bio }}</p>
+                        {% else %}
+                            <p class="about-container">Нет информации</p>
                         {% endif %}
                     </div>
                 </div>
@@ -112,10 +143,17 @@
     </main>
   </body>
   {% include 'blocks/footer.html' %}
-</html>    
+</html>
 {% endblock %}
 
 {% block script %}
 <script src="{% static '/js/profile.js' %}"></script>
 {% endblock %}
+<style>
+    .search-input[type="text"] {
+    height: 41px;
+    margin: 0;
+    margin-right: 10px;
+}
 
+</style>

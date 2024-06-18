@@ -7,11 +7,15 @@ body {
     background-blend-mode: luminosity, normal;
     background-color: #FFB2FC;
     background-image: url("../img/keks1.png");
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
 }
 
 main {
-    padding-top: 25px;
+    padding-top: 20px;
     margin: 0;
+    flex: 1;
 }
 
 img.mainpage-avatar-img {
@@ -24,14 +28,74 @@ img.mainpage-avatar-img {
 }
 
 .right-menu-links {
-    margin: 25px 0px 20px;
+    margin: 25px 0px 10px;
 }
 
 .block-color {
     background-color: white;
 }
 
+.right-menu{
+    margin: 0;
+}
 
+.filters-container{
+    background-color: white;
+    padding: 20px;
+    border-radius: 15px;
+}
+
+.filters-container {
+    margin-bottom: 20px;
+}
+
+.active{
+    color: #7D27C0;
+    pointer-events: none;
+}
+
+.sort-form, .filter-form {
+    margin: 0;
+    margin-bottom: 10px;
+}
+
+.filter-button {
+    margin: 0;
+    margin-top: 10px;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: #7D27C0;
+    color: white;
+    cursor: pointer;
+    opacity: 0.75;
+}
+
+.filter-button:hover {
+    opacity: 0.5;
+}
+
+.custom-select {
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-size: 16px;
+    width: 100%;
+    max-width: 300px;
+}
+
+#city-select {
+    color: #333;
+}
+
+.profile-name{
+    font-weight: 500;
+    font-size: 20px;
+    color: black;
+    margin: 0;
+    margin-bottom: 15px;
+    margin-top: 10px;
+}
 
 a {
     text-decoration: none;

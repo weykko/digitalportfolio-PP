@@ -1,12 +1,20 @@
 body {
     margin: 0;
     font-family: Montserrat;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
 }
 
 main {
     background-color: #FFB2FC;
     background-blend-mode: luminosity, normal;
     background-image: url("../img/keks1.png");
+    flex: 1;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    display: flex;
 
 }
 .page-header {
@@ -26,7 +34,7 @@ main {
     align-items: center;
     top: 50%;
     left: 50%;
-    margin: 90px auto;
+    margin: 20px auto;
     padding: 50px 80px 60px;
 }
 h2 {

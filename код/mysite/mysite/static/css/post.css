@@ -20,9 +20,15 @@ button {
 .post-title img{
     border-radius: 50%;
     border: 0;
-    width: 40px;
-    height: 40px;
+    width: 50px;
+    height: 50px;
 }
+
+.post-title{
+    margin: 0;
+    margin-bottom: 20px;
+}
+
 
 .like-count{
     color: black;
@@ -43,11 +49,11 @@ button {
 }
 
 .like-btn.pressed{
-    background-color: #7D27C0;
+    background-color: inherit;
 }
 
 .delete-post:hover {
-    opacity: 0.7;
+    opacity: 0.5;
 }
 
 .send-button {
@@ -90,6 +96,7 @@ button {
 .buttons{
     display: flex;
     justify-content: space-between;
+    margin: 0;
 }
 
 .post-text{
@@ -116,7 +123,9 @@ button {
 }
 
 .comment-author-name{
-    width: 120px;
+    width: 130px;
+    font-weight: 500;
+
 }
 
 .delete-comment{
@@ -135,6 +144,7 @@ button {
     border-radius: 50%;
     margin-right: 10px;
 }
+
 
 .comment-text {
     flex-grow: 1;

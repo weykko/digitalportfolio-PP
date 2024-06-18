@@ -1,0 +1,86 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Viaoda+Libre&display=swap" rel="stylesheet">
+    <link href="{% static 'css/header.css' %}" rel="stylesheet">
+    <link href="{% static 'css/search-style.css' %}" rel="stylesheet">
+    <title>Поиск профилей</title>
+</head>
+    <body>
+        <header class="page-header">
+      <div class="header-container1">
+              <div class="header-logo">
+                  <a href="{% url 'home_view' %}">
+                    <img src="{% static 'img/Header-logo.svg' %}" width="60">
+                  </a>
+              </div>
+            {% if user.is_anonymous %}
+              <div class="header-button">
+                  <a href="{% url 'login' %}" class="log-in">Войти</a>
+              </div>
+              <div class="header-button">
+                   <a href="{% url 'signup' %}" class="registration">Зарегистрироваться</a>
+              </div>
+              <div class="header-button">
+              <a href="{% url 'post_view' %}" class="log-out">Лента</a>
+              </div>
+          {% else %}
+              {% if request.user == profile.user %}
+              <div class="header-button">
+              <a href="{% url 'profile' pk=user.pk %}" class="active">Профиль</a>
+              </div>
+              {% else %}
+              <div class="header-button">
+              <a href="{% url 'profile' pk=user.pk %}" class="log-out">Профиль</a>
+              </div>
+              {% endif %}
+              <div class="header-button">
+              <a href="{% url 'post_view' %}" class="log-out">Лента</a>
+              </div>
+              <div class="header-button">
+              <a href="{% url 'logout' %}" class="log-out">Выйти</a>
+              </div>
+          {% endif %}
+      </div>
+
+      <div class="header-container2">
+        <div class="circle1">
+          <a href="https://vk.com/sweetcreations" target="_blank">
+          <img src="{% static 'img/vk_icon.svg' %}" width="50" height="50" >
+          </a>
+        </div>
+        <div class="circle2">
+          <a href="https://t.me/sweetcreations1" target="_blank">
+          <img src="{% static 'img/tg-icon.svg' %}" width="50" height="50" >
+          </a>
+        </div>
+      </div>
+</header>
+        <main class="main-search">
+            <div class="search-content">
+                <h1 class="heading">Поиск профилей</h1>
+                <form method="GET" action="{% url 'search_profiles' %}">
+                <input type="text" name="q" placeholder="Введите имя" value="{{ request.GET.q }}">
+                <button class="search-button" type="submit">Поиск</button>
+                </form>
+                <ul class="search-catalogue">
+                    {% for profile in results %}
+                    <li class="search-list">{{ profile.firstname }} {{ profile.lastname }}  <a class="profile"  href="{% url 'profile' pk=profile.pk %}">Профиль</a></li>
+                    {% empty %}
+                    <li class="search-list">Нет результатов</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </main>
+        {% include 'blocks/footer.html' %}
+    </body>
+</html>
+
+<style>
+    .header-container2{
+        margin-left: auto;
+    }
+</style>

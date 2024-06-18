@@ -28,13 +28,12 @@
           <p class="main-paragraph">
             Здесь вы можете поделиться своими вкусными и красивыми кондитерскими изделиями!
           </p>
-          <div class="watch-button">
-                <a href="{% url 'post_view' %}" class="watch-portfolio">Смотреть портфолио</a>
-          </div>
+          <a href="{% url 'post_view' %}" class="watch-button">Смотреть портфолио</a>
+
         </div>
-        <img src="{% static 'img/home-picture.png' %}" width="500" height="711">
-      {% endblock %}
+        <img class="main-picture" src="{% static 'img/home-picture.png' %}" width="500" height="711">
     </main>
   {% include 'blocks/footer.html' %}
   </body>
 </html>
+{% endblock %}

@@ -12,43 +12,7 @@
         <link href="{% static 'css/footer.css' %}" rel="stylesheet">
     </head>
     <body>
-<header class="page-header">
-      <div class="header-container1">
-          {% if user.is_anonymous %}
-              <div class="rectangle1">
-              <a href='login' class="log-in">Войти</a>
-              </div>
-              <div class="rectangle2">
-                   <a href='signup' class="registration">Зарегистрироваться</a>
-              </div>
-          {% else %}
-              <div>
-                  <a href="{% url 'home_view' %}">
-                    <img src="{% static 'img/Header-logo.svg' %}" width="60" >
-                  </a>
-              </div>
-              <div class="rectangle1">
-              <a href='profile/{{ request.user.pk }}' class="profile">Профиль</a>
-              </div>
-              <div class="rectangle2">
-              <a href='logout' class="log-out">Выйти</a>
-              </div>
-          {% endif %}
-      </div>
-
-      <div class="header-container2">
-        <div class="circle1">
-          <a href="https://vk.com/sweetcreations" target="_blank">
-            <img src="{% static 'img/vk_icon.png' %}" width="50" height="50" >
-          </a>
-        </div>
-        <div class="circle2">
-          <a href="https://t.me/sweetcreations1" target="_blank">
-            <img src="{% static 'img/tg-icon.png' %}" width="50" height="50">
-          </a>
-        </div>
-      </div>
-</header>
+    {% include 'blocks/header.html' %}
         <main>
             <h1>Наша команда</h1>
             <div class="about-container">
@@ -97,3 +61,14 @@
         {% include 'blocks/footer.html' %}
     </body>
 </html>
+
+<style>
+    .search-input[type="text"] {
+    box-sizing: border-box;
+    height: 41px;
+    width: 300px
+    margin: 0;
+    margin-right: 5px;
+}
+
+</style>

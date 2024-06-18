@@ -29,7 +29,8 @@ urlpatterns = [
     path('reviews/', Reviews.as_view(), name="reviews"),
     path('support_creators/', SupportCreators.as_view(), name="support_creators"),
     path('user/follow/<int:pk>/', ProfileFollowingCreateView.as_view(), name='follow'),
-    path('posts/', post_list, name='post_list')
+    path('posts/', post_list, name='post_list'),
+    path('search/', search_profiles, name='search_profiles')
 
     # path('', include('allauth.urls')),
     # path('create_profile/',CreateProfilePageView.as_view(), name='create_user_profile'),

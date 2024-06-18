@@ -1,12 +1,14 @@
 body {
     margin: 0;
     font-family: Montserrat;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
 }
 .profile-main {
-    background-color: #FFB2FC;
     background-blend-mode: luminosity, normal;
-    background-image: url("../img/keks1.png");
     margin: 0 auto;
+    flex: 1;
 }
 .profile-container {
     margin: 0;
@@ -24,10 +26,11 @@ body {
     display: block;
     margin: 0;
     margin-bottom: 20px;
+    object-fit: cover;
 }
 
 .information-block {
-    width: 800px;
+    width: 855px;
     border-radius: 15px;
     border: 0;
     background-color: white;
@@ -66,6 +69,7 @@ body {
     display: block;
     padding: 10px;
     font-size: 30px;
+    font-weight: 500;
 }
 
 .about {
@@ -95,7 +99,7 @@ body {
 }
 
 .create-post{
-    width: 1020px;
+    width: 636px;
     margin: 0 auto;
     border-radius: 15px;
 }
