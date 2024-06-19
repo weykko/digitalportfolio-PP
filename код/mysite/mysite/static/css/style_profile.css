@@ -55,7 +55,7 @@ body {
     padding: 15px;
     box-sizing:border-box;
     background-color: rgba(125, 39, 192, 1);
-    transition: background-color 0.3s, color 0.3s;
+    transition: background-color 0.3s, color 0.3s, opacity 0.3s;
 }
 
 .edit_profile:hover {

@@ -69,6 +69,7 @@ img.mainpage-avatar-img {
     color: white;
     cursor: pointer;
     opacity: 0.75;
+    transition: background-color 0.3s, color 0.3s, opacity 0.3s;
 }
 
 .filter-button:hover {
