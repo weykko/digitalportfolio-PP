@@ -8,7 +8,7 @@ Sweet Creations - это сайт-портфолио, где кондитеры 
 
 ## Стек разработки
 - Frontend: **`HTML` `CSS` `JavaScript`** 
-- Backend: **`Python` `Django` `Wagtail`**
+- Backend: **`Python` `Django`**
 
 ## Команда
 Проект выполнен командой CyberBeasts в рамках Проектного практикума 2 семестра УрФУ
