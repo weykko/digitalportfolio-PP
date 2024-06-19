@@ -1,33 +1,36 @@
 body {
     margin: 0;
     font-family: Montserrat;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
 }
 .profile-main {
-    background-color: #FFB2FC;
     background-blend-mode: luminosity, normal;
-    background-image: url("../img/keks1.png");
     margin: 0 auto;
+    flex: 1;
 }
-.container {
+.profile-container {
     margin: 0;
     display: flex;
     justify-content: center;
     gap: 20px;
-    padding-top: 20px;
-    padding-bottom: 380px;
+    padding-top: 0px;
+    margin-bottom: 20px;
 }
 
-.mainpage-avatar-img {
+.profile-mainpage-avatar-img {
     border-radius: 50%;
     width: 200px;
     height: 200px;
     display: block;
     margin: 0;
     margin-bottom: 20px;
+    object-fit: cover;
 }
 
 .information-block {
-    width: 800px;
+    width: 855px;
     border-radius: 15px;
     border: 0;
     background-color: white;
@@ -52,31 +55,56 @@ body {
     padding: 15px;
     box-sizing:border-box;
     background-color: rgba(125, 39, 192, 1);
-
+    transition: background-color 0.3s, color 0.3s, opacity 0.3s;
 }
+
 .edit_profile:hover {
-    opacity: 0.75;
-
+    background-color: rgba(145, 59, 212, 1);
+    color: white;
 }
+
 .name {
     margin: 0;
     margin-bottom: 10px;
     display: block;
     padding: 10px;
+    font-size: 30px;
+    font-weight: 500;
 }
+
 .about {
     margin: 0;
+    word-wrap: break-word;
 }
+
 .info-box {
     background-color: rgb(255, 221, 249, 0.5);
     padding: 5px;
     border-radius: 5px;
     margin-bottom: 20px;
 }
+
 .about-title {
     margin: 0;
     margin-bottom: 10px;
 }
+
 .about-container {
     margin-bottom: 0px;
+    word-wrap: break-word;
+}
+
+.content{
+    margin: 0 auto;
+}
+
+.create-post{
+    width: 636px;
+    margin: 0 auto;
+    border-radius: 15px;
+}
+
+.timeline{
+    width: 636px;
+    margin: 0 auto;
 }

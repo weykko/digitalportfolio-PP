@@ -9,25 +9,32 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Viaoda+Libre&display=swap" rel="stylesheet">
     <link href="{% static 'css/registration.css' %}" rel="stylesheet">
+    <title>Регистрация</title>
+    <link rel="icon" href="{% static 'img/Header-logo.svg' %}" type="image/svg">
 </head>
 <body>
 <link href="{% static 'css/header.css' %}" rel="stylesheet">
 <header class="page-header">
       <div class="header-container1">
-              <div class="rectangle1">
-              <a href="{% url 'home_view' %}" class="log-in">На главную</a>
+              <div class="header-logo">
+                  <a href="{% url 'home_view' %}">
+                    <img src="{% static 'img/Header-logo.svg' %}" width="60">
+                  </a>
+              </div>
+              <div class="header-button">
+                   <a href="{% url 'login' %}" class="log-in">Войти</a>
               </div>
       </div>
 
       <div class="header-container2">
         <div class="circle1">
           <a href="https://vk.com/sweetcreations" target="_blank">
-          <img src="{% static 'img/vk_icon.png' %}" width="50" height="50" >
+          <img src="{% static 'img/vk_icon.svg' %}" width="50" height="50" >
           </a>
         </div>
         <div class="circle2">
           <a href="https://t.me/sweetcreations1" target="_blank">
-          <img src="{% static 'img/tg-icon.png' %}" width="50" height="50" >
+          <img src="{% static 'img/tg-icon.svg' %}" width="50" height="50" >
           </a>
         </div>
       </div>
@@ -42,7 +49,6 @@
                         {% csrf_token %}
                         {{ form.as_p }}
                         <input type="submit" class="register_text" value="Регистрация">
-
                     </form>
                 </div>
             </div>
@@ -53,3 +59,8 @@
 </html>
 {% endblock %}
 
+<style>
+    .header-container2{
+        margin-left: auto;
+    }
+</style>

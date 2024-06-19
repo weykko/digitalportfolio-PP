@@ -1,10 +1,75 @@
+{% load static wagtailcore_tags %}
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-
-</body>
+<html lang="ru">
+    <head>
+        <meta charset="utf-8">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Viaoda+Libre&display=swap" rel="stylesheet">
+        <title>Наша команда</title>
+        <link href="{% static 'css/header.css' %}" rel="stylesheet">
+        <link href="{% static 'css/aboutus.css' %}" rel="stylesheet">
+        <link href="{% static 'css/footer.css' %}" rel="stylesheet">
+        <link rel="icon" href="{% static 'img/Header-logo.svg' %}" type="image/svg">
+    </head>
+    <body>
+    {% include 'blocks/header.html' %}
+        <main>
+            <h1>Наша команда</h1>
+            <div class="about-container">
+                <div class="gallery">
+                    <div class="image-container">
+                        <img src="{% static 'img/Aleksandr.jpg' %}" width="500" height="50">
+                        <p>Александр Безунтров</p>
+                        <span>Тим-лидер</span>
+                    </div>
+                    <div class="image-container">
+                        <img src="{% static 'img/Nickolay.jpg' %}">
+                        <p>Николай Нагиев</p>
+                        <span>Аналитик</span>
+                    </div>
+                    <div class="image-container">
+                        <img src="{% static 'img/Svyatoslav.jpg' %}">
+                        <p>Святослав Лебедкин</p>
+                        <span>Дизайнер</span>
+                    </div>
+                    <div class="image-container">
+                        <img src="{% static 'img/Anna.jpg' %}">
+                        <p>Анна Андрус</p>
+                        <span>Frontend-разработчик</span>
+                    </div>
+                    <div class="image-container">
+                        <img src="{% static 'img/Ivan.jpg' %}">
+                        <p>Иван Куликов</p>
+                        <span>Frontend-разработчик</span>
+                    </div>
+                    <div class="image-container">
+                        <img src="{% static 'img/Eugeniy.jpg' %}">
+                        <p>Евгений Егоров</p>
+                        <span>Backend-разработчик</span>
+                    </div>
+                </div>
+                <div class="about-text">
+                    <p >Мы — команда "CyberBeasts", студенты первого курса Уральского федерального университета.</p>
+                        <p >Наша страсть к программированию и дизайну вдохновила нас на создание красивых и функциональных веб-сайтов.</p>
+                        <p >Сайт "SweetCreations" был разработан специально для кондитеров.</p>
+                       <p > Наша страсть к веб-разработке сочетается с любовью к сладкому
+                        и желанием помочь вашему кондитерскому бизнесу процветать в онлайн-мире.</p>
+                        <p>С нами ваш кондитерский бизнес будет не только вкусным, но и успешным!</p>
+                </div>
+            </div>
+        </main>
+        {% include 'blocks/footer.html' %}
+    </body>
 </html>
+
+<style>
+    .search-input[type="text"] {
+    box-sizing: border-box;
+    height: 41px;
+    width: 300px
+    margin: 0;
+    margin-right: 5px;
+}
+
+</style>

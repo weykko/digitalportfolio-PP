@@ -1,17 +1,15 @@
 {% load static wagtailcore_tags %}
 
-<!DOCTYPE html>
 <html lang="ru">
   <head>
     <meta charset="utf-8">
+    <title>Sweet Creations</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Viaoda+Libre&display=swap" rel="stylesheet">
-
     <link href="{% static 'css/home_style.css' %}" rel="stylesheet">
     <link href="{% static 'css/footer.css' %}" rel="stylesheet">
-
-    <title>{% block title %}Профиль{% endblock %}</title>
+    <link rel="icon" href="{% static 'img/Header-logo.svg' %}" type="image/svg">
   </head>
   <body>
     {% include 'blocks/header.html' %}
@@ -20,7 +18,7 @@
       <section class="hero">
         <div class="hero-contant">
           <div class="title-logo">
-          <img src="{% static 'img/home-logo.svg' %}" width="300" height="215">
+          <img src="{% static 'img/Header-logo.svg' %}" width="200">
           <h1 class="hero-title">
             Добро пожаловать на наш сайт Sweet Creations!
           </h1>
@@ -31,13 +29,12 @@
           <p class="main-paragraph">
             Здесь вы можете поделиться своими вкусными и красивыми кондитерскими изделиями!
           </p>
-          <div class="watch-button">
-                <a href="{% url 'post_view' %}" class="watch-portfolio">Смотреть портфолио</a>
-          </div>
+          <a href="{% url 'post_view' %}" class="watch-button">Смотреть портфолио</a>
+
         </div>
-        <img src="{% static 'img/home-picture.png' %}" width="500" height="711">
-      {% endblock %}
+        <img class="main-picture" src="{% static 'img/home-picture.png' %}" width="500" height="711">
     </main>
   {% include 'blocks/footer.html' %}
   </body>
 </html>
+{% endblock %}

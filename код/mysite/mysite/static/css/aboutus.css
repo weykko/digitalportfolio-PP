@@ -1,0 +1,94 @@
+body {
+    margin: 0;
+    font-family: Montserrat;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+main {
+    background-color: #FFB2FC;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+    flex-grow: 1;
+    background-blend-mode: luminosity, normal;
+    background-image: url("../img/keks1.png");
+    align-items: center;
+    flex: 1;
+}
+
+h1 {
+    text-align: center;
+    margin-top: 0px;
+    margin-bottom: 40px;
+    font-size: 40px;
+    font-weight: 600;
+    color: black;
+}
+
+.gallery {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    max-width: 700px;
+    width: 100%;
+    justify-content: center;
+    background-color: white;
+    padding: 40px;
+    margin: 0;
+    margin-bottom: 0px;
+    margin-right: 40px;
+    border-radius: 15px;
+
+
+}
+.about-container {
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    padding: 0 100px;
+    box-sizing: border-box;
+}
+
+.image-container {
+    text-align: center;
+}
+.image-container img {
+    width: 200px;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+.image-container p {
+    font-weight: 500;
+    margin: 0;
+    margin-bottom: 10px;
+    margin-top: 10px;
+    font-size: 16px;
+    color: black;
+}
+
+.image-container span {
+    display: block;
+    margin-top: 5px;
+    font-size: 14px;
+    color: black;
+}
+.about-text {
+    background-color: white;
+    border-radius: 15px;
+    padding: 20px;
+    width: 480px;
+    height: 582px;
+
+}
+
+.about-text p {
+    margin: 0;
+    font-size: 20px;
+    line-height: 30px;
+    margin-bottom: 20px;
+}

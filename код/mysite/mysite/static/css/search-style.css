@@ -1,0 +1,95 @@
+body {
+    margin: 0;
+    font-family: Montserrat;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+
+}
+.main-search {
+    background-color: #FFB2FC;
+    background-image: url("../img/keks1.png");
+    display: flex;
+    background-blend-mode: luminosity, normal;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    flex: 1;
+
+
+}
+.search-content {
+    background-color: white;
+    border-radius: 15px;
+    padding: 25px;
+    margin: 20px 0;
+}
+
+.heading {
+    margin: 0;
+    color: black;
+    margin-bottom: 40px;
+    text-align: center;
+    font-size: 30px;
+}
+
+
+input[type="text"] {
+    padding: 10px;
+    border: 1px solid black;
+    border-radius: 15px;
+    width: 300px;
+    margin-right: 10px;
+    font-size: 16px;
+}
+
+.search-button {
+    padding: 10px 30px;
+    background-color: white;
+    color: rgba(125, 39, 192, 1);
+    border: 1px solid rgba(125, 39, 192, 1) ;
+    border-radius: 15px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
+
+}
+
+.search-button:hover {
+    background-color: rgba(125, 39, 192, 1);
+    color: white;
+    border: 1px solid  rgba(125, 39, 192, 1);
+}
+
+.search-catalogue {
+    list-style-type: none;
+    padding: 0;
+}
+
+.search-list {
+    background-color: white;
+    margin-bottom: 10px;
+    margin-top: 20px;
+    border: 1px solid black;
+    padding: 10px;
+    border-radius: 15px;
+    display: flex;
+    justify-content: space-between;
+}
+
+ul {
+    margin: 0;
+}
+
+.profile {
+    color:rgba(125, 39, 192, 1);
+    text-decoration: none;
+    transition: opacity 0.3s;
+    font-weight: 500;
+    margin-right: 2px;
+}
+
+.profile:hover {
+    text-decoration: none;
+    opacity: 0.5;
+}

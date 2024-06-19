@@ -1,25 +1,21 @@
+
 body {
     font-family: Montserrat, sans-serif;
     margin: 0;
     padding: 0;
-    color: white;
     background-color: rgba(255, 178, 252, 1);
     background-blend-mode: luminosity, normal;
     background-color: #FFB2FC;
     background-image: url("../img/keks1.png");
-}
-
-.post-photo{
-    border: 0;
-    margin: 0;
-    padding: 0;
-    margin-bottom: 10px;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
 }
 
 main {
-    padding-top: 25px;
+    padding-top: 20px;
     margin: 0;
-
+    flex: 1;
 }
 
 img.mainpage-avatar-img {
@@ -31,67 +27,76 @@ img.mainpage-avatar-img {
     border-radius: 50%;
 }
 
-.comment-form img{
-    border-radius: 50%;
-    border: 0;
-    width: 40px;
-    height: 40px;
-}
-
-.post-title img{
-    border-radius: 50%;
-    border: 0;
-    width: 40px;
-    height: 40px;
-}
-
 .right-menu-links {
-    margin: 25px 0px 20px;
+    margin: 25px 0px 10px;
 }
 
 .block-color {
     background-color: white;
 }
 
-.delete-post {
+.right-menu{
+    margin: 0;
+}
+
+.filters-container{
+    background-color: white;
+    padding: 20px;
+    border-radius: 15px;
+}
+
+.filters-container {
+    margin-bottom: 20px;
+}
+
+.active{
+    color: #7D27C0;
+    pointer-events: none;
+}
+
+.sort-form, .filter-form {
+    margin: 0;
+    margin-bottom: 10px;
+}
+
+.filter-button {
+    margin: 0;
+    margin-top: 10px;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 5px;
     background-color: #7D27C0;
     color: white;
-    border: none;
-    padding: 5px 15px;
-    border-radius: 5px;
     cursor: pointer;
-    font-size: 14px;
-    transition: background-color 0.3s ease;
-    margin: 0;
     opacity: 0.75;
+    transition: background-color 0.3s, color 0.3s, opacity 0.3s;
+    width: 100%;
 }
 
-.buttons{
-    display: flex;
-    justify-content: space-between;
+.filter-button:hover {
+    opacity: 0.5;
 }
 
-
-.like-btn {
-    background-color: #FF4040;
-    color: white;
-    border: none;
-    padding: 5px 15px;
+.custom-select {
+    padding: 10px;
     border-radius: 5px;
-    cursor: pointer;
-    font-size: 14px;
-    transition: background-color 0.3s ease;
+    border: 1px solid #ccc;
+    font-size: 16px;
+    width: 100%;
+    max-width: 300px;
+}
+
+#city-select {
+    color: #333;
+}
+
+.profile-name{
+    font-weight: 500;
+    font-size: 20px;
+    color: black;
     margin: 0;
-    opacity: 0.75;
-}
-
-.delete-post:hover {
-    opacity: 0.7;
-}
-
-.send-button {
-    border-color: #7D27C0;
-    color: #7D27C0;
+    margin-bottom: 15px;
+    margin-top: 10px;
 }
 
 a {
@@ -101,4 +106,31 @@ a {
 
 .left-menu a {
     color: black;
+    background-color: black;
 }
+.left-menu {
+    background-color:rgba(255, 255, 255, 0);
+    border: 0px rgba(255, 255, 255, 0);
+     box-shadow: 0  8px rgba(0, 0, 0, 0);
+}
+
+.right-menu-links .mainpage-avatar-img:nth-of-type(1) {
+    display: inline-block;
+    margin-top: -8px;
+    border-color: #7D27C0;
+    color: #7D27C0;
+    font-size:14px;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+    white-space: nowrap;
+    width: auto;
+}
+
+.right-menu-links .mainpage-avatar-img:nth-of-type(1):hover {
+    border-color: #7D27C0;
+    color: white;
+    background-color: #7D27C0;
+}
+
+

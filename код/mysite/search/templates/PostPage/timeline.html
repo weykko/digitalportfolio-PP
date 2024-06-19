@@ -1,5 +1,5 @@
+{% load static wagtailcore_tags%}
 {% load my_filters %}
-{% load static %}
 {% block content %}
 
 <!DOCTYPE html>
@@ -12,114 +12,129 @@
     <link href="{% static 'css/bootstrap.css' %}" rel="stylesheet">
     <link href="{% static 'css/timeline.css' %}" rel="stylesheet">
     <link href="{% static 'css/footer.css' %}" rel="stylesheet">
+    <link href="{% static 'css/header.css' %}" rel="stylesheet">
     <script src="{% static 'js/main.js' %}"></script>
+    <script src="{% static 'js/scripts.js' %}"></script>
+    <title>Лента</title>
+    <link rel="icon" href="{% static 'img/Header-logo.svg' %}" type="image/svg">
 </head>
 <body>
-    {% include 'blocks/header.html' %}
+<header class="page-header">
+      <div class="header-container1">
+          <div class="header-logo">
+                  <a href="{% url 'home_view' %}">
+                    <img src="{% static 'img/Header-logo.svg' %}" width="60" >
+                  </a>
+          </div>
+          {% if user.is_anonymous %}
+              <div class="header-button">
+              <a href='login' class="log-in">Войти</a>
+              </div>
+              <div class="header-button">
+                   <a href='signup' class="registration">Зарегистрироваться</a>
+              </div>
+              <div class="header-button">
+              <a href="{% url 'post_view' %}" class="active">Лента</a>
+              </div>
+          {% else %}
+              <div class="header-button">
+              <a href="{% url 'profile' pk=user.pk %}">Профиль</a>
+              </div>
+              <div class="header-button">
+              <a href="{% url 'post_view' %}" class="active">Лента</a>
+              </div>
+              <div class="header-button">
+              <a href='logout' class="log-out">Выйти</a>
+              </div>
+          {% endif %}
+      </div>
+      <form class="search-form" method="GET" action="{% url 'search_profiles' %}">
+          <input class="search-input" type="text" name="q" placeholder="Найти пользователя по имени" value="{{ request.GET.q }}">
+          <button class="search-button" type="submit">
+                <img src="{% static 'img/search-icon.png' %}" width="30" height="30">
+          </button>
+      </form>
+      <div class="header-container2">
+        <div class="circle1">
+          <a href="https://vk.com/sweetcreations" target="_blank">
+            <img src="{% static 'img/vk_icon.svg' %}" width="50" height="50" >
+          </a>
+        </div>
+        <div class="circle2">
+          <a href="https://t.me/sweetcreations1" target="_blank">
+            <img src="{% static 'img/tg-icon.svg' %}" width="50" height="50">
+          </a>
+        </div>
+      </div>
+</header>
     <main class="container">
         <div class="row">
             <div class="col-3">
-                <div class="block left-menu block-color">
-                    <a href="{% url 'home_view' %}">На главную</a>
-                    <a href='profile/{{ request.user.pk }}'>Мой профиль</a>
-                    <!--<a href="{% url 'home_view' %}">Мои подписчики</a>-->
-                </div>
-            </div>
 
-            <div class="col-6 content">
-                <div class="card">
-                    <div class="card-body">
-                        <form method="post" name="new-post-form" enctype="multipart/form-data">
-                            {% csrf_token %}
-                            <textarea class="form-control form-control-sm" type="text" name="text" placeholder="Что нового?"></textarea>
-                            <label for="image">Прикрепить картинку:</label>
-                            <input class="form-control form-control-sm" type="file" name="image"><br>
-                            <input class="form-control btn btn-outline-success btn-sm send-button" type="submit" value="Отправить">
+                    <div class="filters-container">
+                        <!-- Форма сортировки -->
+                        <form method="get" action="" class="sort-form">
+                            <label for="sort_by">Сортировка:</label>
+                            <select name="sort_by" id="sort_by" class="custom-select" onchange="this.form.submit()">
+                                <option value="date_new" {% if request.GET.sort_by == 'date_new' %}selected{% endif %}>Самое свежее</option>
+                                <option value="date_old" {% if request.GET.sort_by == 'date_old' %}selected{% endif %}>Самое старое</option>
+                                <option value="character_count_large" {% if request.GET.sort_by == 'character_count_large' %}selected{% endif %}>Больше символов</option>
+                                <option value="character_count" {% if request.GET.sort_by == 'character_count' %}selected{% endif %}>Меньше символов</option>
+                                <option value="likes" {% if request.GET.sort_by == 'likes' %}selected{% endif %}>По количеству лайков</option>
+                                <option value="comments" {% if request.GET.sort_by == 'comments' %}selected{% endif %}>По количеству комментариев</option>
+                            </select>
+                        </form>
+
+                        <!-- Форма фильтрации -->
+                        <form class="filter-form" method="get" action="">
+<!--                            <label for="has_photo">Наличие фото:</label>-->
+<!--                            <select name="has_photo" id="has_photo" class="custom-select">-->
+<!--                                <option value="">Неважно</option>-->
+<!--                                <option value="1" {% if request.GET.has_photo == '1' %}selected{% endif %}>С фото</option>-->
+<!--                                <option value="0" {% if request.GET.has_photo == '0' %}selected{% endif %}>Без фото</option>-->
+<!--                            </select>-->
+
+                            <!-- Форма фильтрации по городам -->
+                            {{ city_filter_form.as_p }}
+                            <button type="submit" class="filter-button">Применить фильтры</button>
                         </form>
                     </div>
-                </div>
-
-                <div class="timeline">
-                    {% for post in posts %}
-                        <div class="card">
-                            <div class="card-body post">
-                                <div class="post-title">
-                                    {% if post.author.profile.profile_pic %}
-                                        <img src="{{ post.author.profile.profile_pic.url }}" class="post-author-img img-thumbnail">
-                                    {% else %}
-                                        <img src="{% static 'base/images/profile/user.png' %}" class="post-author-img img-thumbnail">
-                                    {% endif %}
-                                    <div class="post-author">
-                                        <a href="{% url 'profile' post.author.id %}">{{ post.author.get_full_name }} </a>
-                                    </div>
-                                    {% if post.author.profile.occupation %}
-                                        <p>{{ post.author.profile.occupation }}</p>
-                                    {% endif %}
-                                    <div class="post-datetime">
-                                        {{ post.datetime|date:"d M Y H:i" }}
-                                    </div>
-                                </div>
-                                {% if post.image %}
-                                    <img src="{{ post.image.url }}" class="img-thumbnail post-photo"><br>
-                                {% endif %}
-                                <div class="post-text">
-                                    {{ post.text|default_if_none:""|linebreaks|urlize }}
-                                </div>
-                                <div class="buttons">
-                                    <div class="like-section">
-                                        <button class="like-btn" data-id="{{ post.id }}">
-                                            Лайк (<span class="like-count">{{ post.total_likes }}</span>)
-                                        </button>
-                                    </div>
-                                    <div class="delete-section">
-                                        {% if post.author == request.user %}
-                                        <form action="{% url 'delete_post' post.id %}" method="post">
-                                            {% csrf_token %}
-                                            <button type="submit" class="delete-post">Удалить пост</button>
-                                        </form>
-                                        {% endif %}
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="card-footer">
-                                <div id="comments-list-post-{{ post.id }}">
-                                    {% for comment in post.comments.all %}
-                                        {% place_comment comment %}
-                                    {% endfor %}
-                                </div>
-                                <div class="comment-form">
-                                    {% if user.profile.profile_pic %}
-                                        <img src="{{ user.profile.profile_pic.url }}" class="post-author-img img-thumbnail">
-                                    {% else %}
-                                        <img src="{% static 'images/user.png' %}" class="post-author-img img-thumbnail">
-                                    {% endif %}
-                                    <div style="display: flex; margin-top: 4px;">
-                                        <input class="form-control form-control-sm comment-input" placeholder="Оставить комментарий" data-post-id="{{ post.id }}">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    {% endfor %}
-                </div>
             </div>
 
-            <div class="col-3">
-                <div class="block right-menu block-color" style="text-align: center;">
-                    <b>{{ user.get_full_name }}</b>
-                    {% if request.user.profile.profile_pic %}
-                        <img src="{{ request.user.profile.profile_pic.url }}" alt="Аватарка пользователя" class="mainpage-avatar-img img-thumbnail">
-                    {% else %}
-                        <p>Аватарка пользователя отсутствует</p>
-                    {% endif %}
-                    <div class="right-menu-links">
-                        <a href='profile/{{ request.user.pk }}' class="mainpage-avatar-img img-thumbnail">
-                            <i class="fa fa-user-circle"></i> Мой профиль
-                        </a>
+
+        <div class="col-6 content">
+            <div class="timeline">
+                {% include 'PostPage/post.html' %}
+            </div>
+        </div>
+            {% if user.is_authenticated %}
+                <div class="col-3">
+                    <div class="block right-menu block-color" style="text-align: center; border-radius: 15px; border: 0;">
+                        <p class="profile-name">{{ user.get_full_name }}</p>
+                        {% if request.user.profile.profile_pic %}
+                            <img src="{{ request.user.profile.profile_pic.url }}" alt="Аватарка пользователя" class="mainpage-avatar-img img-thumbnail">
+                        {% else %}
+                            <img src="{% static 'img/user.png' %}" class="mainpage-avatar-img img-thumbnail">
+                        {% endif %}
+                        <div class="right-menu-links">
+                            <a href='profile/{{ request.user.pk }}' class="mainpage-avatar-img img-thumbnail">
+                                <i class="fa fa-user-circle"></i> Мой профиль
+                            </a>
+                        </div>
                     </div>
                 </div>
-            </div>
+            {% endif %}
         </div>
     </main>
     {% include 'blocks/footer.html' %}
 </body>
 {% endblock %}
+<style>
+    .search-input[type="text"] {
+
+    height: 41px;
+    margin: 0;
+    margin-right: 10px;
+}
+
+</style>

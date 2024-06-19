@@ -2,11 +2,10 @@
 
 }
 
-.watch-button a:hover {
+.watch-button:hover {
     color: #7D27C0;
-
+    opacity: 0.85;
 }
-
 .main-footer {
 
 }
@@ -14,28 +13,41 @@
 body {
     margin: 0;
     font-family: Montserrat;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+
 }
 
 .main-content {
     background-color: #FFB2FC;
+    flex: 1;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+
 }
 
 .hero {
     margin: 0 auto;
     display: flex;
     justify-content: space-between;
-    padding: 50px;
+    padding: 0 50px;
 }
 
 .title-logo {
     display: flex;
     align-items: flex-start;
-    gap: 100px;
-    margin-bottom: 25px;
+    gap: 50px;
+    margin-bottom: 50px;
 }
 
 .hero-contant {
     margin: 50px 30px;
+}
+
+.main-picture{
 }
 
 .hero-title {
@@ -61,13 +73,10 @@ body {
     align-items: center;
     margin: 0;
     margin-top: 80px;
-}
-
-.watch-button a {
+    font-size: 35px;
     color: black;
     text-decoration: none;
-    font-size: 35px;
-
+    transition: background-color 0.3s, color 0.3s, opacity 0.3s;
 }
 
 a {

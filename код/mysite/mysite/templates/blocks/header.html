@@ -2,32 +2,48 @@
 <link href="{% static 'css/header.css' %}" rel="stylesheet">
 <header class="page-header">
       <div class="header-container1">
-          {% if user.is_anonymous %}
-              <div class="rectangle1">
-              <a href='login' class="log-in">Войти</a>
+              <div class="header-logo">
+                  <a href="{% url 'home_view' %}">
+                    <img src="{% static 'img/Header-logo.svg' %}" width="60">
+                  </a>
               </div>
-              <div class="rectangle2">
-                   <a href='signup' class="registration">Зарегистрироваться</a>
+          {% if user.is_anonymous %}
+              <div class="header-button">
+              <a href="{% url 'login' %}" class="log-in">Войти</a>
+              </div>
+              <div class="header-button">
+                   <a href="{% url 'signup' %}" class="registration">Зарегистрироваться</a>
+              </div>
+              <div class="header-button">
+              <a href="{% url 'post_view' %}" class="log-out">Лента</a>
               </div>
           {% else %}
-              <div class="rectangle1">
-              <a href='profile/{{ request.user.pk }}' class="profile">Профиль</a>
+              <div class="header-button">
+              <a href="{% url 'profile' pk=user.pk %}" class="log-out">Профиль</a>
               </div>
-              <div class="rectangle2">
-              <a href='logout' class="log-out">Выйти</a>
+              <div class="header-button">
+              <a href="{% url 'post_view' %}" class="log-out">Лента</a>
+              </div>
+              <div class="header-button">
+              <a href="{% url 'logout' %}" class="log-out">Выйти</a>
               </div>
           {% endif %}
       </div>
-
+          <form class="search-form" method="GET" action="{% url 'search_profiles' %}">
+              <input class="search-input" type="text" name="q" placeholder="Найти пользователя по имени" value="{{ request.GET.q }}">
+              <button class="search-button" type="submit">
+                    <img src="{% static 'img/search-icon.png' %}" width="30" height="30">
+              </button>
+          </form>
       <div class="header-container2">
         <div class="circle1">
           <a href="https://vk.com/sweetcreations" target="_blank">
-          <img src="{% static 'img/vk_icon.png' %}" width="50" height="50" >
+            <img src="{% static 'img/vk_icon.svg' %}" width="50" height="50" >
           </a>
         </div>
         <div class="circle2">
           <a href="https://t.me/sweetcreations1" target="_blank">
-          <img src="{% static 'img/tg-icon.png' %}" width="50" height="50" >
+            <img src="{% static 'img/tg-icon.svg' %}" width="50" height="50">
           </a>
         </div>
       </div>
